@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Produk | Oversized Sweater - Bluemint</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="nav-logo">
+                <h2 class="logo-text">🛍️Bluemint</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html#home" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="index.html#about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="index.html#lookbook" class="nav-link">Lookbook</a></li>
+                <li class="nav-item"><a href="index.html#collection" class="nav-link">Shop</a></li>
+                <li class="nav-item"><a href="index.html#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        
+        <section class="product-detail-section">
+            <div class="detail-container">
+                
+                <div class="detail-image-gallery">
+                    <img src="image/depan3.jpg" alt="Oversized Sweater Tampak Depan" class="main-product-img">
+                    
+                    <div class="thumbnail-gallery">
+                        <img src="image/samping3.jpg" alt="Tampilan 1" class="thumbnail-img active">
+                        <img src="image/belakang3.jpg" alt="Tampilan 2" class="thumbnail-img">
+                    </div>
+                </div>
+
+                <div class="detail-info-area">
+                    <h1 class="product-title">Oversized Sweater</h1>
+                    <p class="product-price">Rp 159.000</p>
+                    
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> (4/5 Bintang)
+                    </div>
+                    <hr>
+
+                    <div class="product-description">
+                        <h2>Deskripsi Produk</h2>
+                        <p>Sweater rajut oversized yang nyaman dan hangat. Memberikan tampilan santai dan modern. Bahan tebal, cocok untuk cuaca dingin atau bersantai di rumah.</p>
+                        
+                        <h3>Detail Material & Ukuran:</h3>
+                        <ul>
+                            <li>Bahan: Wool Rajut Premium (Tebal & Hangat)</li>
+                            <li>Warna: Dusty Blue, Cream, Abu-abu</li>
+                            <li>Detail: Kerah O-Neck, Lengan panjang</li>
+                            <li>Fit: Oversized (Hanya Satu Ukuran)</li>
+                        </ul>
+                    </div>
+
+                    <div class="product-options">
+                        <div class="option-group">
+                            <label for="pilih-ukuran">Pilih Ukuran:</label>
+                            <select id="pilih-ukuran" name="ukuran" disabled>
+                                <option value="One Size">One Size</option>
+                            </select>
+                        </div>
+                        
+                        <div class="option-group">
+                            <label for="input-jumlah">Jumlah:</label>
+                            <input type="number" id="input-jumlah" value="1" min="1">
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button id="add-to-cart-btn" class="btn-secondary">
+                            <i class="fas fa-shopping-cart"></i> Tambah ke Keranjang
+                        </button>
+                        
+                        <button id="buy-now-btn" class="btn-primary">
+                            Beli Sekarang
+                        </button>
+                    </div>
+
+                    <span 
+                        id="product-data" 
+                        data-id="SWEATER-003" 
+                        data-name="Oversized Sweater" 
+                        data-price="159000" 
+                        data-image="image/depan3.jpg" 
+                        style="display: none;">
+                    </span>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <div id="mini-cart-popup">
+        <h4>🛒 Item Berhasil Ditambahkan</h4>
+        <div id="mini-cart-items"></div>
+        <hr>
+        <div class="mini-cart-summary">
+            <p>Total Keranjang:</p>
+            <p id="mini-cart-total" style="font-weight: bold;"></p>
+        </div>
+        <a href="keranjang.html" class="button mini-cart-btn">LIHAT KERANJANG</a>
+        <button class="mini-cart-close" onclick="document.getElementById('mini-cart-popup').classList.remove('active');">Tutup</button>
+    </div>
+
+    <script src="cart.js"></script> 
+    <script src="detail-script.js"></script>
+</body>
+</html>

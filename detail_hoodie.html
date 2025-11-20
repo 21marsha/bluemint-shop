@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Produk | Pastel Pink Hoodie - Bluemint</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="nav-logo">
+                <h2 class="logo-text">🛍️Bluemint</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html#home" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="index.html#about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="index.html#lookbook" class="nav-link">Lookbook</a></li>
+                <li class="nav-item"><a href="index.html#collection" class="nav-link">Shop</a></li>
+                <li class="nav-item"><a href="index.html#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        
+        <section class="product-detail-section">
+            <div class="detail-container">
+                
+                <div class="detail-image-gallery">
+                    <img src="image/p1.jpg" alt="Pastel Pink Hoodie" class="main-product-img">
+                    
+                    <div class="thumbnail-gallery">
+                        <img src="image/samping111.jpg" alt="Tampilan 1" class="thumbnail-img active">
+                        <img src="image/belakang111.jpg" alt="Tampilan 2" class="thumbnail-img">
+                    </div>
+                </div>
+
+                <div class="detail-info-area">
+                    <h1 class="product-title">Pastel Pink Hoodie</h1>
+                    <p class="product-price">Rp 185.000</p>
+                    
+                    <div class="product-rating">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> (4.5/5 Bintang)
+                    </div>
+                    <hr>
+
+                    <div class="product-description">
+                    <h2>Deskripsi Produk</h2>
+                    <p>Hoodie berwarna pink pastel lembut dengan potongan panjang (tunik). Dibuat dari fleece premium tebal, hangat, namun tidak membuat gerah. Cocok untuk tampilan kasual yang manis.</p>
+                        
+                    <h3>Detail Material & Ukuran:</h3>
+                        <ul>
+                            <li>Bahan: Cotton Fleece Premium</li>
+                            <li>Warna: Pink Pastel</li>
+                            <li>Detail: Tudung tali, Kantong Kangguru</li>
+                            <li>Panjang: Tunik (Menutup pinggul)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="product-options">
+                        <div class="option-group">
+                            <label for="pilih-ukuran">Pilih Ukuran:</label>
+                            <select id="pilih-ukuran" name="ukuran">
+                                <option value="S/M">S/M</option>
+                                <option value="L/XL">L/XL</option>
+                            </select>
+                        </div>
+                        
+                        <div class="option-group">
+                            <label for="input-jumlah">Jumlah:</label>
+                            <input type="number" id="input-jumlah" value="1" min="1">
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button id="add-to-cart-btn" class="btn-secondary">
+                            <i class="fas fa-shopping-cart"></i> Tambah ke Keranjang
+                        </button>
+                        
+                        <button id="buy-now-btn" class="btn-primary">
+                            Beli Sekarang
+                        </button>
+                    </div>
+                    
+                    <span 
+                        id="product-data" 
+                        data-id="PASTEL-001" 
+                        data-name="Pastel Pink Hoodie" 
+                        data-price="185000" 
+                        data-image="image/p1.jpg" 
+                        style="display: none;">
+                    </span>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+    
+    <div id="mini-cart-popup">
+        <h4>🛒 Item Berhasil Ditambahkan</h4>
+        <div id="mini-cart-items">
+            </div>
+        <hr>
+        <div class="mini-cart-summary">
+            <p>Total Keranjang:</p>
+            <p id="mini-cart-total" style="font-weight: bold;"></p>
+        </div>
+        
+        <a href="keranjang.html" class="button mini-cart-btn">LIHAT KERANJANG</a>
+        <button class="mini-cart-close" onclick="document.getElementById('mini-cart-popup').classList.remove('active');">Tutup</button>
+    </div>
+
+    <script src="cart.js"></script> 
+    <script src="detail-script.js"></script>
+</body>
+</html>

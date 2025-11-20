@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Bluemint</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css"> 
+    
+    <style>
+        .contact-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .contact-container h1 {
+            text-align: center;
+            color: #34495e;
+            margin-bottom: 30px;
+        }
+        .contact-form label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .contact-form input[type="text"], 
+        .contact-form input[type="email"], 
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        .contact-form textarea {
+            resize: vertical;
+        }
+        .contact-form button {
+            background-color: #3498db;
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+            width: 100%;
+        }
+        .contact-form button:hover {
+            background-color: #2980b9;
+        }
+        .contact-info {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="nav-logo">
+                <h2 class="logo-text">🛍️Bluemint</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="lookbook.html" class="nav-link">Lookbook</a></li>
+                <li class="nav-item"><a href="shop.html" class="nav-link">Shop</a></li>
+                <li class="nav-item"><a href="contact.html" class="nav-link active">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="contact-section">
+            <div class="contact-container">
+                <h1>Hubungi Kami</h1>
+                <p style="text-align: center; margin-bottom: 20px;">Kami senang mendengar masukan, pertanyaan, atau saran dari Anda. Silakan isi formulir di bawah ini.</p>
+
+                <form id="contact-form" class="contact-form">
+                    
+                    <label for="name">Nama Lengkap</label>
+                    <input type="text" id="name" name="name" required placeholder="Masukkan nama Anda">
+
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required placeholder="Masukkan alamat email Anda">
+
+                    <label for="subject">Subjek</label>
+                    <input type="text" id="subject" name="subject" required placeholder="Contoh: Pertanyaan Pesanan">
+
+                    <label for="message">Pesan</label>
+                    <textarea id="message" name="message" rows="6" required placeholder="Tuliskan pesan Anda di sini..."></textarea>
+
+                    <button type="submit" class="btn-primary">Kirim Pesan</button>
+                </form>
+
+                <div class="contact-info">
+                    <h2>Atau Hubungi Kami Secara Langsung</h2>
+                    <p><i class="fas fa-phone-alt"></i> Telepon: +62 812-3456-7890</p>
+                    <p><i class="fas fa-envelope"></i> Email: halo@bluemint.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Alamat: Jl. Fashion Raya No. 10, Jakarta Selatan</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <p>🛍️Bluemint | Find the best fashion here.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+
+            alert('✅ Terima kasih! Pesan Anda telah kami terima dan akan segera kami balas.');
+    
+            this.reset();
+        });
+    </script>
+</body>
+</html>

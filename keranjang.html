@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keranjang Belanja | Bluemint</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-logo">
+                <h2 class="logo-text">🛍️Bluemint</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html#home" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="index.html#about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="index.html#lookbook" class="nav-link">Lookbook</a></li>
+                <li class="nav-item"><a href="index.html#collection" class="nav-link">Shop</a></li>
+                <li class="nav-item"><a href="index.html#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="cart-section">
+            <div class="container">
+                <h2 class="casual-title" style="text-align: center; margin-bottom: 30px;">🛒 Keranjang Belanja</h2>
+                
+                <div id="cart-items-container">
+                    </div>
+                
+                <div class="cart-summary">
+                    <h3>Total Belanja: <span id="cart-total-price">Rp 0</span></h3>
+                    <button id="checkout-btn" class="button" style="margin-top: 15px;">
+                        Lanjutkan ke Pembayaran
+                    </button>
+                </div>
+
+                <p style="text-align: center; margin-top: 30px;"><a href="index.html" style="color: var(--primary-color);">← Lanjut Belanja</a></p>
+            </div>
+        </section>
+    </main>
+
+    <script src="cart.js"></script> 
+</body>
+</html>

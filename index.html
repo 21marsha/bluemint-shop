@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bluemint</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="nav-logo">
+                <h2 class="logo-text">🛍️Bluemint</h2>
+            </div>
+
+        <ul class="nav-menu">
+             <button id="menu-close-button" class="fas fa-times"></button>
+
+             <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li> 
+             <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+             <li class="nav-item"><a href="lookbook.html" class="nav-link">Lookbook</a></li>
+             <li class="nav-item"><a href="shop.html" class="nav-link">Shop</a></li> 
+             <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li> 
+    
+             <li class="nav-item">
+             <a href="cart.html" class="nav-link">
+             <i class="fas fa-shopping-cart"></i> 
+        </a>
+    </li>
+</ul>
+
+            <button id="menu-open-button" class="fas fa-bars"></button>
+        </nav>
+    </header>
+
+
+    <main>
+
+        <section class="hero-section" id="home">
+            <div class="hero-container">
+                <div class="hero-details">
+                    <h2 class="title">Hot Items</h2>
+                    <h3 class="subtitle">Make your day with our special collection</h3>
+                    <p class="description">Find the best fashion here at Bluemint</p>
+                    <div class="buttons">
+                        <a href="#collection" class="button order-now">Shop Now</a>
+                        
+                        <a href="contact.html" class="button contact-us">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="about-section" id="about">
+            <div class="about-container">
+
+                <div class="about-image">
+                    <img src="image/bluemint.jpg" alt="Bluemint Fashion" class="about-img">
+                </div>
+
+                <div class="about-content">
+                    <h2 class="about-title">About Bluemint</h2>
+
+                    <p class="about-text">
+                        Bluemint adalah toko fashion modern yang menghadirkan pakaian dengan desain simple, clean,
+                        dan cocok untuk kegiatan sehari-hari.
+                    </p>
+
+                    <p class="about-text">
+                        Koleksi kami berfokus pada bahan nyaman, warna fresh, dan desain minimalis yang timeless.
+                    </p>
+
+                    <a href="about.html" class="about-button">Learn More</a> 
+                </div>
+
+            </div>
+        </section>
+
+
+        <section class="collection-section" id="collection">
+            <div class="collection-container">
+
+                <h2 class="collection-title">Our Best Sellers</h2>
+                <p class="collection-subtitle">Simple • Clean • Everyday Fashion</p>
+
+                <div class="collection-grid" style="margin-top: 50px;">
+                    <a href="casual.html" class="collection-card">
+                        <img src="image/collection1.png" alt="Casual Outfit">
+                        <h3>Casual Outfit</h3>
+                        <p>Nyaman dipakai sehari-hari dengan warna soft & minimalis.</p>
+                    </a>
+
+                    <a href="tshirt.html" class="collection-card">
+                        <img src="image/collection2.png" alt="Basic T-Shirts">
+                        <h3>Basic T-Shirts</h3>
+                        <p>Kaos premium kualitas halus dan breathable.</p>
+                    </a>
+
+                    <a href="pastel.html" class="collection-card">
+                        <img src="image/collection3.png" alt="Pastel Series">
+                        <h3>Pastel Series</h3>
+                        <p>Warna pastel yang fresh untuk vibe yang lebih stylish.</p>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+
+        <section class="lookbook-section" id="lookbook">
+            <div class="lookbook-container">
+
+                <h2 class="lookbook-title">Lookbook</h2>
+                <p class="lookbook-subtitle">Explore our outfit inspirations</p>
+
+                <div class="lookbook-grid">
+
+                    <div class="lookbook-item">
+                        <img src="image/look6.jpg" alt="Lookbook 1">
+                    </div>
+
+                    <div class="lookbook-item">
+                        <img src="image/look8.jpg" alt="Lookbook 2">
+                    </div>
+
+                    <div class="lookbook-item">
+                        <img src="image/look5.jpg" alt="Lookbook 3">
+                    </div>
+
+                    <div class="lookbook-item">
+                        <img src="image/look9.jpg" alt="Lookbook 4">
+                    </div>
+
+                    <div class="lookbook-item">
+                        <img src="image/look2.jpg" alt="Lookbook 5">
+                    </div>
+
+                    <div class="lookbook-item">
+                        <img src="image/look11.jpg" alt="Lookbook 6">
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer id="contact">
+        <div class="footer-content">
+            <p>🛍️Bluemint | Find the best fashion here.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+            <p><a href="contact.html" style="color: white; text-decoration: underline;">Hubungi Kami</a></p>
+        </div>
+    </footer>
+
+
+    <script src="script.js"></script>
+    <script src="cart.js"></script>    
+    <script src="detail-script.js"></script>
+
+</body>
+</html>

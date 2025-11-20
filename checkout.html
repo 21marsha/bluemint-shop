@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Pembayaran | Bluemint</title>
+    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    
+    <style>
+
+        .checkout-section {
+            padding: 100px 5% 80px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .checkout-layout {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap; 
+        }
+
+        .form-area {
+            flex: 2; 
+            min-width: 300px;
+        }
+        
+        #shipping-form input[type="text"],
+        #shipping-form input[type="email"],
+        #shipping-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box; 
+        }
+        
+        #shipping-form textarea {
+            resize: vertical;
+        }
+
+        .payment-methods-group {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .radio-option input[type="radio"] {
+            margin-right: 10px;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .summary-area {
+            flex: 1; 
+            min-width: 250px;
+            padding: 20px;
+            background: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            height: fit-content; 
+        }
+        
+        #checkout-items-list {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        #place-order-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .checkout-layout {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">...</nav>
+    </header>
+    
+    <main>
+        <section class="checkout-section">
+            <h1 style="text-align: center; margin-bottom: 40px; color: var(--primary-color);">Halaman Pembayaran</h1>
+            
+            <div class="checkout-layout">
+                
+                <div class="form-area">
+                    
+                    <h2>Informasi Pengiriman</h2>
+                    <form id="shipping-form">
+                        <input type="text" id="nama-lengkap" placeholder="Nama Lengkap" required>
+                        <input type="email" id="email-pelanggan" placeholder="Email" required>
+                        <input type="text" id="telepon" placeholder="Nomor Telepon (Aktif)" required>
+                        <input type="text" id="kode-pos" placeholder="Kode Pos" required>
+                        <textarea id="alamat-lengkap" placeholder="Alamat Lengkap (Jalan, Nomor Rumah, RT/RW)" rows="4" required></textarea>
+                    </form>
+                    
+                    <h2 style="margin-top: 30px;">Metode Pembayaran</h2>
+                    <div class="payment-methods-group">
+                        
+                        <div class="radio-option">
+                            <input type="radio" id="payment-transfer" name="paymentMethod" value="transfer" checked> 
+                            <label for="payment-transfer">Transfer Bank (BCA, Mandiri, BRI, BNI)</label>
+                        </div>
+                        
+                        <div class="radio-option">
+                            <input type="radio" id="payment-e-wallet" name="paymentMethod" value="e-wallet"> 
+                            <label for="payment-e-wallet">E-Wallet (GoPay, DANA, OVO)</label>
+                        </div>
+                        
+                        <div class="radio-option">
+                            <input type="radio" id="payment-cod" name="paymentMethod" value="cod"> 
+                            <label for="payment-cod">Bayar di Tempat (COD)</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="summary-area">
+                    <h2>Ringkasan Pesanan</h2>
+                    
+                    <div id="checkout-items-list">
+                        <p>Memuat item...</p>
+                    </div>
+                    
+                    <div class="summary-total">
+                        Total Pembayaran: <span id="checkout-total-price">Rp 0</span>
+                    </div>
+                    
+                    <button id="place-order-btn" class="button btn-primary">
+                       Bayar Sekarang
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="cart.js"></script>
+</body>
+</html>
