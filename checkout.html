@@ -1,171 +1,242 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout | Bluemint</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <style>
-       
-        .checkout-container {
-            padding: 120px 5% 80px; 
-            max-width: 700px;
-            margin: auto;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | Bluemint</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        
+        .checkout-container {
+            padding: 120px 5% 80px; 
+            max-width: 700px;
+            margin: auto;
+        }
 
-        .checkout-container h3 {
-            margin-top: 25px;
-            padding-bottom: 5px;
-            border-bottom: 2px solid #ccc;
-            color: #333;
-        }
+        .checkout-container h3 {
+            margin-top: 25px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #ccc;
+            color: var(--primary-color);
+        }
 
-        .checkout-container input[type="text"], 
-        .checkout-container textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box; 
-        }
+        .checkout-container input[type="text"], 
+        .checkout-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; 
+        }
 
-        .payment-methods label {
-            display: block;
-            margin-bottom: 10px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+        .payment-methods label {
+            display: block;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        /* Tambahkan style untuk daftar item di ringkasan */
+        #checkout-items-list p {
+            font-size: 0.95rem;
+            color: var(--text-color-medium);
+            margin: 5px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .order-summary {
+            margin-top: 30px;
+            padding: 15px;
+            border: 1px solid var(--accent-color);
+            background-color: #f7f9f9;
+            border-radius: 5px;
+            font-size: 1.1rem;
+        }
 
-        .order-summary {
-            margin-top: 30px;
-            padding: 15px;
-            border: 1px solid #0056b3;
-            background-color: #e6f0ff;
-            border-radius: 5px;
-            font-size: 1.1rem;
-        }
+        .order-summary strong {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+        }
 
-        .btn-pay {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            margin-top: 20px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
+        .btn-pay {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
 
-        .btn-pay:hover {
-            background-color: #1e7e34;
-        }
-
-    </style>
+        .btn-pay:hover {
+            background-color: var(--accent-color);
+        }
+    </style>
 </head>
 <body>
-    <header>
-                <nav class="navbar">...</nav>
-    </header>
-    <main>
-        <section class="checkout-container">
-            <h1>Selesaikan Pesanan</h1>
-            
-            <form id="checkoutForm">
-                
-                <h3>Informasi Pengiriman</h3>
-                <input type="text" name="name" placeholder="Nama Lengkap" required>
-                <input type="text" name="phone" placeholder="Nomor HP (WhatsApp)" required>
-                <textarea name="address" placeholder="Alamat Lengkap (Jalan, No Rumah, Kecamatan)" required></textarea>
-                
-                <h3>Metode Pembayaran</h3>
-                <div class="payment-methods">
-                    <label>
-                        <input type="radio" name="payment_method" value="transfer" required> Transfer Bank (BCA)
-                    </label>
-                    <label>
-                        <input type="radio" name="payment_method" value="e-wallet" required> E-Wallet (GoPay/Dana)
-                    </label>
-                    <label>
-                        <input type="radio" name="payment_method" value="cod" required> Bayar di Tempat (COD)
-                    </label>
-                </div>
-                
-                <div class="order-summary">
-                                        <p>Subtotal: <span id="display-subtotal">Rp 0</span></p>
-                    <p>Ongkos Kirim: Rp 30.000</p>
-                    <p><strong>TOTAL PEMBAYARAN: <span id="display-total-final">Rp 30.000</span></strong></p>
-                </div>
+    <header>
+        <nav class="navbar">
+            <div class="nav-logo">
+                <a href="index.html" class="logo-text">🛍️Bluemint</a>
+            </div>
+            <i id="menu-open-button" class="fas fa-bars"></i>
+            <ul class="nav-menu">
+                <i id="menu-close-button" class="fas fa-times"></i>
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="lookbook.html" class="nav-link">Lookbook</a></li>
+                <li><a href="shop.html" class="nav-link">Shop</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="checkout-container">
+            <h1>Selesaikan Pesanan</h1>
+            
+            <form id="checkoutForm">
+                
+                <h3>Informasi Pengiriman</h3>
+                <input type="text" name="name" placeholder="Nama Lengkap" required>
+                <input type="text" name="phone" placeholder="Nomor HP (WhatsApp)" required>
+                <textarea name="address" placeholder="Alamat Lengkap (Jalan, No Rumah, Kecamatan)" required></textarea>
+                
+                <h3>Metode Pembayaran</h3>
+                <div class="payment-methods">
+                    <label>
+                        <input type="radio" name="payment_method" value="transfer" required> Transfer Bank (BCA)
+                    </label>
+                    <label>
+                        <input type="radio" name="payment_method" value="e-wallet" required> E-Wallet (GoPay/Dana)
+                    </label>
+                    <label>
+                        <input type="radio" name="payment_method" value="cod" required> Bayar di Tempat (COD)
+                    </label>
+                </div>
+                
+                <div class="order-summary">
+                    <h3>Ringkasan Pesanan</h3>
+                    <div id="checkout-items-list">
+                        </div>
+                    
+                    <p>Subtotal: <span id="display-subtotal">Rp 0</span></p>
+                    <p>Ongkos Kirim: Rp 30.000</p>
+                    <p><strong>Total Pembayaran: <span id="display-total-final">Rp 30.000</span></strong></p>
+                </div>
 
-                <input type="hidden" id="hidden-total-value" value="0"> 
+                <input type="hidden" id="hidden-total-value" value="0"> 
 
-                <button type="submit" class="btn-pay">Bayar Sekarang</button>
-            </form>
-        </section>
-    </main>
+                <button type="submit" class="btn-pay">Bayar Sekarang</button>
+            </form>
+        </section>
+    </main>
 
-    <script>
-        
-        const SHIPPING_FEE = 30000; 
+    <script>
+        
+        const SHIPPING_FEE = 30000; 
 
-        
-        function loadOrderSummary() {
-            const subtotal = parseFloat(localStorage.getItem('cartTotal')) || 0;
-            const totalFinal = subtotal + SHIPPING_FEE;
-            
-            
-            document.getElementById('display-subtotal').textContent = `Rp ${subtotal.toLocaleString('id-ID')}`;
-            
-            
-            document.getElementById('display-total-final').textContent = `Rp ${totalFinal.toLocaleString('id-ID')}`;
-            
-            
-            document.getElementById('hidden-total-value').value = totalFinal;
+        // Fungsi baru: Menampilkan item dan menghitung subtotal
+        function renderCheckoutItems(cartItems) {
+            const listContainer = document.getElementById('checkout-items-list');
+            listContainer.innerHTML = ''; 
+
+            if (cartItems.length === 0) {
+                listContainer.innerHTML = '<p style="font-style: italic;">Keranjang kosong.</p>';
+                return 0;
+            }
+
+            let subtotal = 0;
+
+            cartItems.forEach(item => {
+                // Pastikan harga adalah number, jika disimpan sebagai string, konversi dulu
+                const itemPrice = parseFloat(item.price); 
+                const totalItemPrice = itemPrice * item.quantity;
+                subtotal += totalItemPrice; 
+
+                const itemElement = document.createElement('p');
+                itemElement.innerHTML = `
+                    ${item.name} (${item.size}) &times; ${item.quantity} 
+                    <span style="float:right;">Rp ${totalItemPrice.toLocaleString('id-ID')}</span>
+                `;
+                listContainer.appendChild(itemElement);
+            });
+
+            return subtotal; 
+        }
+
+        // Fungsi utama untuk memuat ringkasan harga
+        function loadOrderSummary() {
+            const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+            // 1. Render item dan hitung subtotal
+            const subtotal = renderCheckoutItems(cartItems);
+
+            const totalFinal = subtotal + SHIPPING_FEE;
+            
+            // 2. Tampilkan Subtotal dan Total Akhir
+            document.getElementById('display-subtotal').textContent = `Rp ${subtotal.toLocaleString('id-ID')}`;
+            document.getElementById('display-total-final').textContent = `Rp ${totalFinal.toLocaleString('id-ID')}`;
+            
+            document.getElementById('hidden-total-value').value = totalFinal;
 
             if (subtotal === 0) {
                 alert("Keranjang belanja Anda kosong. Mohon belanja terlebih dahulu.");
-                window.location.href = 'cart.html'; 
+                window.location.href = 'index.html'; 
             }
-        }
+        }
 
         window.onload = loadOrderSummary;
 
-        
-        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
-            e.preventDefault(); 
+        
+        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+            e.preventDefault(); 
 
-            const selectedMethod = document.querySelector('input[name="payment_method"]:checked');
-            hidden yang sudah diperbarui oleh loadOrderSummary
-            const totalValue = document.getElementById('hidden-total-value').value;
-            
-            if (selectedMethod) {
-                const methodCode = selectedMethod.value;
-                const name = document.querySelector('input[name="name"]').value.trim();
-                const address = document.querySelector('textarea[name="address"]').value.trim();
-                const phone = document.querySelector('input[name="phone"]').value.trim();
-                
-                if (name === '' || address === '' || phone === '') {
-                    alert("Mohon lengkapi semua data pengiriman.");
-                    return; 
-                }
-                
-                
-                localStorage.removeItem('cartItems'); 
-                localStorage.removeItem('cartTotal'); 
+            const selectedMethod = document.querySelector('input[name="payment_method"]:checked');
+            const totalValue = document.getElementById('hidden-total-value').value;
+            
+            if (selectedMethod) {
+                const name = document.querySelector('input[name="name"]').value.trim();
+                const address = document.querySelector('textarea[name="address"]').value.trim();
+                const phone = document.querySelector('input[name="phone"]').value.trim();
+                
+                if (name === '' || address === '' || phone === '') {
+                    alert("Mohon lengkapi semua data pengiriman.");
+                    return; 
+                }
+                
+                // Simpan detail order ke localStorage untuk halaman sukses
+                const orderDetails = {
+                    total: totalValue,
+                    method: selectedMethod.value,
+                    // Tambahkan detail lain di sini jika perlu
+                };
+                localStorage.setItem('lastOrderDetails', JSON.stringify(orderDetails));
 
-                
-                window.location.href = `order-success.html?total=${totalValue}&method=${methodCode}`;
-            } else {
-                alert("Mohon pilih salah satu metode pembayaran.");
-            }
-        });
+                // Bersihkan keranjang
+                localStorage.removeItem('cartItems'); 
+                localStorage.removeItem('cartTotal'); 
+                
+                window.location.href = `order-success.html?total=${totalValue}&method=${selectedMethod.value}`;
+            } else {
+                alert("Mohon pilih salah satu metode pembayaran.");
+            }
+        });
 
+        // ===================================
+        // Logika Mobile Navbar (Diulang agar ikon bekerja)
+        // ===================================
         const navMenu = document.querySelector('.nav-menu');
         const openBtn = document.getElementById('menu-open-button');
         const closeBtn = document.getElementById('menu-close-button');
@@ -181,6 +252,6 @@
                 navMenu.classList.remove('active');
             });
         }
-    </script>
+    </script>
 </body>
 </html>

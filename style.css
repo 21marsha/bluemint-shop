@@ -468,105 +468,34 @@ header {
 /* ====================================
   8. MEDIA QUERIES (RESPONSIVE)
   ==================================== */
-@media screen and (max-width: 900px) {
-    #menu-open-button {
-        display: block;
-        font-size: 1.8rem;
-        color: var(--white-color);
-        cursor: pointer;
-        z-index: 200; 
-    }
 
-    .nav-menu {
-        position: fixed;
-        right: 0;
-        top: 0;
-        width: 70%; 
-        height: 100vh;
-        background: var(--primary-color);
-        flex-direction: column;
-        justify-content: flex-start; 
-        align-items: flex-start; 
-        padding: 50px 30px; 
-        transform: translateX(100%); 
-        transition: transform 0.4s ease-in-out;
-        box-shadow: -5px 0 15px rgba(0,0,0,0.2);
-    }
+@media screen and (max-width: 900px) {
     
-    .nav-menu.active {
-        transform: translateX(0);
-    }
-    
-    #menu-close-button {
-        display: none;
+    /* 1. Atur posisi mutlak untuk ikon burger */
+    #menu-open-button {
+        display: block; /* TAMPILKAN ikon burger */
         position: absolute;
+        right: 20px; 
+        top: 20px; 
+        z-index: 200; 
+        /* ... (properti lain) ... */
+    }
+    
+    /* 2. Sembunyikan tombol TUTUP secara default */
+    #menu-close-button {
+        display: none; /* <-- PASTIKAN INI ADA dan tidak tertimpa! */
+        position: absolute; /* Tetap posisikan secara absolut */
         top: 25px;
         right: 25px;
-        font-size: 2rem;
-        color: var(--white-color);
-        cursor: pointer;
+        /* ... (properti lain) ... */
     }
     
+    /* 3. Tampilkan tombol TUTUP HANYA saat menu aktif */
     .nav-menu.active #menu-close-button {
-        display: block; 
+        display: block; /* Ganti display: none dengan display: block/flex hanya di sini */
     }
     
-    .nav-menu li {
-        margin: 15px 0;
-        width: 100%;
-    }
-
-    .nav-link {
-        display: block;
-        width: 100%;
-    }
-
-    .about-container {
-        flex-direction: column;
-        text-align: center;
-        gap: 30px;
-    }
-}
-
-@media (max-width: 768px) {
-    .hero-container {
-        text-align: center;
-    }
-    .title {
-        font-size: 2.8rem;
-    }
-    .subtitle {
-        font-size: 1.4rem;
-    }
-    
-    .detail-container {
-        flex-direction: column;
-        gap: 20px;
-        padding: 20px;
-    }
-    
-    .action-buttons {
-        flex-direction: column;
-        gap: 10px;
-    }
-    .btn-primary, .btn-secondary {
-        width: 100%;
-        min-width: unset;
-    }
-    
-    .checkout-layout {
-        flex-direction: column;
-    }
-    .summary-area {
-        order: -1; 
-        margin-bottom: 20px;
-    }
-}
-
-@media (max-width: 600px) {
-    .collection-card img {
-        height: 220px;
-    }
+    /* ... (kode lain) ... */
 }
 
 /* ==================================== */
