@@ -465,37 +465,96 @@ header {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
-/* ====================================
-  8. MEDIA QUERIES (RESPONSIVE)
-  ==================================== */
+/* ==================================== */
+/* 8. MEDIA QUERIES (RESPONSIVE)        */
+/* ==================================== */
 
 @media screen and (max-width: 900px) {
     
-    /* 1. Atur posisi mutlak untuk ikon burger */
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 65%; 
+        height: 100%;
+        background-color: var(--primary-color);
+        flex-direction: column;
+        padding: 50px 30px;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+        z-index: 150;
+        transform: translateX(100%); 
+        transition: transform 0.4s ease-in-out;
+    }
+
+    .nav-menu.active {
+        transform: translateX(0);
+    }
+    
+    .navbar {
+        padding: 15px 20px;
+        position: relative; 
+    }
+    
+    .nav-link {
+        font-size: 1.2rem;
+        padding: 15px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
     #menu-open-button {
-        display: block; /* TAMPILKAN ikon burger */
-        position: absolute;
-        right: 20px; 
-        top: 20px; 
+        display: block; 
+        font-size: 2.2rem; 
+        color: var(--white-color);
+        cursor: pointer;
         z-index: 200; 
-        /* ... (properti lain) ... */
+        position: absolute; 
+        right: 20px; 
+        top: 15px; 
     }
     
-    /* 2. Sembunyikan tombol TUTUP secara default */
     #menu-close-button {
-        display: none; /* <-- PASTIKAN INI ADA dan tidak tertimpa! */
-        position: absolute; /* Tetap posisikan secara absolut */
-        top: 25px;
-        right: 25px;
-        /* ... (properti lain) ... */
+        display: none; 
+        font-size: 2.2rem; 
+        color: var(--white-color);
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        z-index: 210; 
     }
     
-    /* 3. Tampilkan tombol TUTUP HANYA saat menu aktif */
     .nav-menu.active #menu-close-button {
-        display: block; /* Ganti display: none dengan display: block/flex hanya di sini */
+        display: block; 
     }
     
-    /* ... (kode lain) ... */
+    .detail-container {
+        padding: 20px;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .detail-image-gallery, .detail-info-area {
+        min-width: 100%;
+    }
+    
+    .product-title {
+        font-size: 2em; 
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .btn-primary, .btn-secondary {
+        width: 100%;
+    }
+
+    .about-container {
+        flex-direction: column;
+    }
+    
+    .casual-grid, .collection-grid, .pastel-grid, .product-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
+    }
 }
 
 /* ==================================== */
