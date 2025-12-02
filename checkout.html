@@ -158,116 +158,114 @@
     </main>
 
     <script>
+    const navMenu = document.querySelector('.nav-menu');
+    const openBtn = document.getElementById('menu-open-button');
+    const closeBtn = document.getElementById('menu-close-button');
 
-        const navMenu = document.querySelector('.nav-menu');
-        const openBtn = document.getElementById('menu-open-button');
-        const closeBtn = document.getElementById('menu-close-button');
+    if (openBtn) openBtn.addEventListener('click', () => navMenu.classList.add('active'));
+    if (closeBtn) closeBtn.addEventListener('click', () => navMenu.classList.remove('active'));
 
-        if (openBtn && navMenu) {
-            openBtn.addEventListener('click', () => {
-                navMenu.classList.add('active');
-            });
+    const SHIPPING_FEE = 30000;
+
+    function formatRupiah(number) {
+        if (isNaN(number)) return 'Rp 0';
+        return new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            minimumFractionDigits: 0
+        }).format(number);
+    }
+
+    function getCheckoutItems() {
+        const buyNow = sessionStorage.getItem("buyNowItem");
+
+        if (buyNow) {
+            return [JSON.parse(buyNow)];
         }
 
-        if (closeBtn && navMenu) {
-            closeBtn.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-            });
+        return JSON.parse(localStorage.getItem("cartItems")) || [];
+    }
+
+    function renderCheckoutItems(items) {
+        const listContainer = document.getElementById('checkout-items-list');
+        listContainer.innerHTML = '';
+
+        if (items.length === 0) {
+            listContainer.innerHTML = '<p style="font-style: italic;">Keranjang kosong.</p>';
+            return 0;
         }
 
-        const SHIPPING_FEE = 30000; 
+        let subtotal = 0;
 
-        function formatRupiah(number) {
-            if (isNaN(number)) return 'Rp 0';
-            return new Intl.NumberFormat('id-ID', {
-                style: 'currency',
-                currency: 'IDR',
-                minimumFractionDigits: 0
-            }).format(number);
-        }
+        items.forEach(item => {
+            const totalItemPrice = item.price * item.quantity;
+            subtotal += totalItemPrice;
 
-        function renderCheckoutItems(cartItems) {
-            const listContainer = document.getElementById('checkout-items-list');
-            listContainer.innerHTML = ''; 
-
-            if (cartItems.length === 0) {
-                listContainer.innerHTML = '<p style="font-style: italic;">Keranjang kosong.</p>';
-                return 0;
-            }
-
-            let subtotal = 0;
-
-            cartItems.forEach(item => {
-                const itemPrice = parseFloat(item.price); 
-                const totalItemPrice = itemPrice * item.quantity;
-                subtotal += totalItemPrice; 
-
-                const itemElement = document.createElement('p');
-                itemElement.innerHTML = `
-                    ${item.name} (${item.size}) &times; ${item.quantity} 
-                    <span style="float:right;">${formatRupiah(totalItemPrice)}</span>
-                `;
-                listContainer.appendChild(itemElement);
-            });
-
-            return subtotal; 
-        }
-
-        function loadOrderSummary() {
-            const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-
-            const subtotal = renderCheckoutItems(cartItems);
-
-            const totalFinal = subtotal + SHIPPING_FEE;
-            
-            document.getElementById('display-subtotal').textContent = formatRupiah(subtotal);
-            document.getElementById('display-total-final').textContent = formatRupiah(totalFinal);
-            
-            document.getElementById('hidden-total-value').value = totalFinal;
-
-            if (subtotal === 0) {
-                alert("Keranjang belanja Anda kosong. Mohon belanja terlebih dahulu.");
-                window.location.href = 'shop.html'; 
-            }
-        }
-
-        window.onload = loadOrderSummary;
-
-        
-        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
-            e.preventDefault(); 
-
-            const selectedMethod = document.querySelector('input[name="payment_method"]:checked');
-            const totalValue = document.getElementById('hidden-total-value').value;
-            
-            if (selectedMethod) {
-                const name = document.querySelector('input[name="name"]').value.trim();
-                const address = document.querySelector('textarea[name="address"]').value.trim();
-                const phone = document.querySelector('input[name="phone"]').value.trim();
-                
-                if (name === '' || address === '' || phone === '') {
-                    alert("Mohon lengkapi semua data pengiriman.");
-                    return; 
-                }
-
-                const methodCode = selectedMethod.value;
-                const orderDetails = {
-                    total: totalValue,
-                    method: methodCode,
-                };
-                localStorage.setItem('lastOrderDetails', JSON.stringify(orderDetails));
-                
-                if (methodCode === 'cod') {
-                    localStorage.removeItem('cartItems'); 
-                    localStorage.removeItem('cartTotal'); 
-                } 
-                
-                window.location.href = `order-success.html?total=${totalValue}&method=${methodCode}`;
-            } else {
-                alert("Mohon pilih salah satu metode pembayaran.");
-            }
+            const itemElement = document.createElement('p');
+            itemElement.innerHTML = `
+                ${item.name} (${item.size}) × ${item.quantity}
+                <span style="float:right;">${formatRupiah(totalItemPrice)}</span>
+            `;
+            listContainer.appendChild(itemElement);
         });
 
-    </script>
+        return subtotal;
+    }
+
+    function loadOrderSummary() {
+        const items = getCheckoutItems();
+
+        const subtotal = renderCheckoutItems(items);
+        const totalFinal = subtotal + SHIPPING_FEE;
+
+        document.getElementById('display-subtotal').textContent = formatRupiah(subtotal);
+        document.getElementById('display-total-final').textContent = formatRupiah(totalFinal);
+
+        document.getElementById('hidden-total-value').value = totalFinal;
+
+        if (subtotal === 0) {
+            alert("Pesanan kosong. Silakan pilih produk terlebih dahulu.");
+            window.location.href = 'shop.html';
+        }
+    }
+
+    window.onload = loadOrderSummary;
+
+    document.getElementById('checkoutForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const selectedMethod = document.querySelector('input[name="payment_method"]:checked');
+        const totalValue = document.getElementById('hidden-total-value').value;
+
+        if (!selectedMethod) {
+            alert("Mohon pilih metode pembayaran.");
+            return;
+        }
+
+        const name = document.querySelector('input[name="name"]').value.trim();
+        const address = document.querySelector('textarea[name="address"]').value.trim();
+        const phone = document.querySelector('input[name="phone"]').value.trim();
+
+        if (!name || !address || !phone) {
+            alert("Mohon lengkapi semua informasi pengiriman.");
+            return;
+        }
+
+        const methodCode = selectedMethod.value;
+
+        const orderDetails = { total: totalValue, method: methodCode };
+        localStorage.setItem("lastOrderDetails", JSON.stringify(orderDetails));
+
+        sessionStorage.removeItem("buyNowItem");
+
+        if (methodCode !== "cod") {
+            localStorage.removeItem('cartItems');
+        }
+
+        window.location.href =
+            `order-success.html?total=${totalValue}&method=${methodCode}`;
+    });
+    
+</script>
 </body>
 </html>

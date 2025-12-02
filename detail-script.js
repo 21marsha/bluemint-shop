@@ -1,72 +1,88 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const addToCartBtn = document.getElementById('add-to-cart-btn');
-    const buyNowBtn = document.getElementById('buy-now-btn');
-    const inputJumlah = document.getElementById('input-jumlah');
-    const pilihUkuran = document.getElementById('pilih-ukuran');
-    const productDataElement = document.getElementById('product-data');
-    const navMenu = document.querySelector('.nav-menu');
-    const openBtn = document.getElementById('menu-open-button');
-    const closeBtn = document.getElementById('menu-close-button');
+document.addEventListener("DOMContentLoaded", () => {
 
-    if (openBtn && navMenu) {
-        openBtn.addEventListener('click', () => {
-            navMenu.classList.add('active');
-        });
-    }
+    const addToCartBtn = document.getElementById("add-to-cart-btn");
+    const buyNowBtn = document.getElementById("buy-now-btn");
+    const productData = document.getElementById("product-data");
+    const sizeSelect = document.getElementById("pilih-ukuran");
+    const qtyInput = document.getElementById("input-jumlah");
 
-    if (closeBtn && navMenu) {
-        closeBtn.addEventListener('click', () => {
-            navMenu.classList.remove('active');
-        });
-    }
-
-    if (!productDataElement) {
-        console.error("Elemen #product-data tidak ditemukan. Tombol tidak akan berfungsi.");
-        return;
-    }
-    
-    function getProductData() {
-        const quantity = parseInt(inputJumlah ? inputJumlah.value : 1);
-        
-        return {
-            id: productDataElement.dataset.id,
-            name: productDataElement.dataset.name,
-            price: productDataElement.dataset.price, 
-            image: productDataElement.dataset.image,
-            size: pilihUkuran ? pilihUkuran.value : 'Satu Ukuran',
-            quantity: quantity,
+    function addToCart() {
+        const cartItem = {
+            id: productData.dataset.id,
+            name: productData.dataset.name,
+            price: parseInt(productData.dataset.price),
+            image: productData.dataset.image,
+            size: sizeSelect.value,
+            quantity: parseInt(qtyInput.value)
         };
+
+        let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+
+        const existingIndex = cart.findIndex(
+            item => item.id === cartItem.id && item.size === cartItem.size
+        );
+
+        if (existingIndex !== -1) {
+            cart[existingIndex].quantity += cartItem.quantity;
+        } else {
+            cart.push(cartItem);
+        }
+
+        localStorage.setItem("cartItems", JSON.stringify(cart));
+
+        showMiniCart(cart);
     }
 
-    if (addToCartBtn) {
-        addToCartBtn.addEventListener('click', () => {
-            const product = getProductData();
-            
-            if (product.quantity < 1 || isNaN(product.quantity)) {
-                alert("Jumlah produk tidak valid!");
-                return;
-            }
-            
-            if (typeof addToCart === 'function') {
-                addToCart(product);
-            }
+    function showMiniCart(cart) {
+        const popup = document.getElementById("mini-cart-popup");
+        const itemsContainer = document.getElementById("mini-cart-items");
+        const totalDisplay = document.getElementById("mini-cart-total");
+
+        itemsContainer.innerHTML = "";
+
+        let total = 0;
+
+        cart.forEach(item => {
+            total += item.price * item.quantity;
+
+            const div = document.createElement("div");
+            div.classList.add("mini-cart-item");
+
+            div.innerHTML = `
+                <img src="${item.image}" class="mini-cart-img">
+                <div>
+                    <p>${item.name}</p>
+                    <p>Ukuran: ${item.size}</p>
+                    <p>Qty: ${item.quantity}</p>
+                    <p>Rp ${(item.price * item.quantity).toLocaleString()}</p>
+                </div>
+            `;
+            itemsContainer.appendChild(div);
         });
+
+        totalDisplay.innerText = "Rp " + total.toLocaleString();
+
+        popup.classList.add("active");
     }
 
-    if (buyNowBtn) {
-        buyNowBtn.addEventListener('click', () => {
-            const product = getProductData();
-            
-            if (product.quantity < 1 || isNaN(product.quantity)) {
-                alert("Jumlah produk tidak valid!");
-                return;
-            }
-            
-            if (typeof addToCart === 'function') {
-                addToCart(product);
-            }
-            
-            window.location.href = 'checkout.html'; 
-        });
-    }
+    addToCartBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        addToCart();
+    });
+
+    buyNowBtn.addEventListener("click", () => {
+        const item = {
+            id: productData.dataset.id,
+            name: productData.dataset.name,
+            price: parseInt(productData.dataset.price),
+            image: productData.dataset.image,
+            size: sizeSelect.value,
+            quantity: parseInt(qtyInput.value)
+        };
+
+        sessionStorage.setItem("buyNowItem", JSON.stringify(item));
+
+        window.location.href = "checkout.html";
+    });
+
 });

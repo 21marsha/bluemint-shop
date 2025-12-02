@@ -6,27 +6,23 @@
     <title>Pesanan Berhasil | Bluemint</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
     <style>
-    
         .success-container {
             padding: 100px 5% 80px;
             max-width: 800px;
             margin: auto;
             text-align: center;
-            border: 2px solid #28a745;  
+            border: 2px solid #28a745;
             border-radius: 10px;
             background-color: #f1fff5;
-            margin-top: 50px; 
+            margin-top: 50px;
         }
 
         .success-container i.fa-check-circle {
             font-size: 5rem;
             color: #28a745;
             margin-bottom: 20px;
-        }
-        
-        .success-container h1 {
-            color: #1c7430;
         }
 
         .order-details {
@@ -37,33 +33,37 @@
             text-align: left;
         }
 
-        .order-details strong { 
+        .order-details strong {
             display: inline-block;
-            width: 180px; 
+            width: 180px;
             color: #1c7430;
         }
 
         #payment-code-detail {
-            margin-top: 15px;  
-            padding: 10px;  
-            border: 1px dashed #28a745;  
+            margin-top: 15px;
+            padding: 10px;
+            border: 1px dashed #28a745;
             background: #fff;
         }
-        
-        .order-details .highlight-total {
+
+        .highlight-total {
             font-size: 1.3rem;
             font-weight: bold;
-            color: #d9534f; 
+            color: #d9534f;
         }
     </style>
 </head>
+
 <body>
+
     <header>
         <nav class="navbar">
             <div class="nav-logo">
                 <a href="index.html" class="logo-text">🛍️Bluemint</a>
             </div>
+
             <i id="menu-open-button" class="fas fa-bars"></i>
+
             <ul class="nav-menu">
                 <i id="menu-close-button" class="fas fa-times"></i>
                 <li><a href="index.html" class="nav-link">Home</a></li>
@@ -74,140 +74,118 @@
             </ul>
         </nav>
     </header>
+
     <main>
         <section class="success-container">
             <i class="fas fa-check-circle"></i>
             <h1>Pesanan Berhasil Dibuat!</h1>
             <p>Terima kasih atas pesanan Anda. Kami akan segera memprosesnya.</p>
-            
+
             <div class="order-details">
                 <h3 style="margin-top: 0; color: #1c7430;">Detail Pembayaran</h3>
-                
-                <p><strong>Nomor Pesanan:</strong> <span id="final-order-number">BMINT-2025XXX</span></p>
-                <p><strong>Metode Pembayaran:</strong> <span id="final-method">Memuat...</span></p> 
+
+                <p><strong>Nomor Pesanan:</strong> <span id="final-order-number">BMINT-XXXX</span></p>
+                <p><strong>Metode Pembayaran:</strong> <span id="final-method">Memuat...</span></p>
                 <p><strong>Total Pembayaran:</strong> <span id="final-total" class="highlight-total">Rp 0</span></p>
-                
+
                 <div id="payment-code-detail">
-                    <p style="text-align: center;">Memuat instruksi pembayaran...</p>
+                    <p style="text-align:center;">Memuat instruksi pembayaran...</p>
                 </div>
 
-                <p style="font-size: 0.9em; color: #666; margin-top: 15px;">Anda akan menerima email konfirmasi dengan detail pengiriman segera.</p>
+                <p style="font-size:0.9em; color:#666; margin-top:15px;">
+                    Anda akan menerima email konfirmasi segera.
+                </p>
             </div>
 
-            <a href="index.html" class="button btn-primary" style="margin-top: 30px; text-decoration: none;">Kembali ke Home</a>
+            <a href="index.html" class="button btn-primary" style="margin-top:30px; text-decoration:none;">
+                Kembali ke Home
+            </a>
         </section>
     </main>
 
+
     <script>
-        
+
         function formatRupiah(number) {
-            if (isNaN(number) || number === null) return 'Rp 0';
-            
-            return new Intl.NumberFormat('id-ID', {
-                style: 'currency',
-                currency: 'IDR',
+            return new Intl.NumberFormat("id-ID", {
+                style: "currency",
+                currency: "IDR",
                 minimumFractionDigits: 0
-            }).format(number);
+            }).format(number || 0);
         }
-        
-        function generatePaymentCode(method) {
-            let instruction = '';
-            
-            if (method === 'transfer') {
-                instruction = `
-                    <p style="margin: 0; font-weight: bold; color: #000;">Transfer Bank (Pilih Salah Satu):</p>
-                    
-                    <h4 style="margin: 5px 0 0; color: #1c7430; font-size: 1.1rem;">BCA: 8899 0088 1234 5678</h4>
-                    <p style="margin: 2px 0; font-size: 0.9em; color: #666;">a/n PT Bluemint Jaya</p>
-                    
-                    <h4 style="margin: 5px 0 0; color: #1c7430; font-size: 1.1rem;">Mandiri: 1234 5678 9012</h4>
-                    <p style="margin: 2px 0; font-size: 0.9em; color: #666;">a/n Marsha Amalia</p>
 
-                    <p style="font-size: 0.9em; margin-top: 15px;">Lakukan pembayaran ke salah satu rekening di atas sebelum 24 jam.</p>
+        function generatePaymentInstruction(method) {
+            if (method === "transfer") {
+                return `
+                    <p style="margin:0; font-weight:bold;">Transfer Bank:</p>
+
+                    <h4 style="margin:5px 0; color:#1c7430;">BCA: 8899 0088 1234 5678</h4>
+                    <p style="margin:0; font-size:0.9em;">a/n PT Bluemint Jaya</p>
+
+                    <h4 style="margin:10px 0 0; color:#1c7430;">Mandiri: 1234 5678 9012</h4>
+                    <p style="margin:0; font-size:0.9em;">a/n Marsha Amalia</p>
+
+                    <p style="font-size:0.9em; margin-top:10px;">Bayar dalam 24 jam.</p>
                 `;
-            } else if (method === 'e-wallet') {
-                const code = '0878-xxxx-xxxx (GoPay)';
-                instruction = `
-                    <p style="margin: 0; font-weight: bold; color: #000;">Nomor Pembayaran E-Wallet:</p>
-                    <h4 style="margin: 5px 0; color: #1c7430; font-size: 1.3rem;">${code}</h4>
-                    <p style="font-size: 0.9em;">Silakan buka aplikasi E-Wallet Anda untuk menyelesaikan pembayaran.</p>
-                `;
-            } else if (method === 'cod') {
-                instruction = `
-                    <p style="margin: 0; font-weight: bold; color: #000;">Pembayaran di tempat:</p>
-                    <h4 style="margin: 5px 0; color: #1c7430; font-size: 1.3rem;">Bayar Tunai</h4>
-                    <p style="font-size: 0.9em;">Siapkan uang tunai sesuai total tagihan saat kurir tiba.</p>
-                `;
-            } else {
-                instruction = `<p style="text-align: center; color: red;">Instruksi pembayaran tidak tersedia untuk metode ini.</p>`;
             }
-            return instruction;
+
+            if (method === "e-wallet") {
+                return `
+                    <p style="margin:0; font-weight:bold;">Pembayaran E-Wallet:</p>
+                    <h4 style="margin:5px 0; color:#1c7430;">GoPay / Dana: 0878-xxxx-xxxx</h4>
+                    <p style="font-size:0.9em;">Selesaikan pembayaran via aplikasi.</p>
+                `;
+            }
+
+            if (method === "cod") {
+                return `
+                    <p style="margin:0; font-weight:bold;">Bayar di Tempat:</p>
+                    <h4 style="margin:5px 0; color:#1c7430;">Pembayaran Tunai</h4>
+                    <p style="font-size:0.9em;">Siapkan uang pas saat kurir datang.</p>
+                `;
+            }
+
+            return `<p style="color:red;">Metode tidak valid.</p>`;
         }
 
-
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener("DOMContentLoaded", () => {
             const params = new URLSearchParams(window.location.search);
-            const totalParam = params.get('total');
-            const total = totalParam ? parseFloat(totalParam) : 0; 
-            const methodCode = params.get('method');
-            
-            const finalTotalDisplay = document.getElementById('final-total');
-            const finalMethodDisplay = document.getElementById('final-method');
-            const codeDetailDisplay = document.getElementById('payment-code-detail');
-            const orderNumberDisplay = document.getElementById('final-order-number'); 
 
-            if (finalTotalDisplay && !isNaN(total)) {
-                finalTotalDisplay.textContent = formatRupiah(total);
-            } else if (finalTotalDisplay) {
-                finalTotalDisplay.textContent = 'Rp 0 (Data Hilang)';
-            }
+            const total = parseFloat(params.get("total")) || 0;
+            const method = params.get("method") || "unknown";
 
-            let methodName = 'Metode Tidak Dikenal';
-            if (methodCode === 'transfer') {
-                methodName = 'Transfer Bank (BCA/Mandiri)';
-            } else if (methodCode === 'e-wallet') {
-                methodName = 'E-Wallet (GoPay/Dana)';
-            } else if (methodCode === 'cod') {
-                methodName = 'Bayar di Tempat (COD)';
-            }
+            document.getElementById("final-total").textContent = formatRupiah(total);
 
-            if (finalMethodDisplay) {
-                finalMethodDisplay.textContent = methodName;
-            }
+            const methodNames = {
+                "transfer": "Transfer Bank (BCA/Mandiri)",
+                "e-wallet": "E-Wallet (GoPay/Dana)",
+                "cod": "Bayar di Tempat (COD)"
+            };
 
-            if (codeDetailDisplay) {
-                const instructionHtml = generatePaymentCode(methodCode);
-                codeDetailDisplay.innerHTML = instructionHtml;
-            }
-            
-            if (orderNumberDisplay) {
-                const date = new Date();
-                const formattedDate = date.toISOString().slice(2, 10).replace(/-/g, ''); // YYMMDD
-                const uniqueId = date.getTime().toString().slice(-4); 
-                orderNumberDisplay.textContent = `BMINT-${formattedDate}-${uniqueId}`;
-            }
+            document.getElementById("final-method").textContent =
+                methodNames[method] || "Tidak Dikenal";
 
-            if (methodCode !== 'cod') {
-                localStorage.removeItem('cartItems');
-                localStorage.removeItem('cartTotal'); 
+            document.getElementById("payment-code-detail").innerHTML =
+                generatePaymentInstruction(method);
+
+            const d = new Date();
+            const dateCode = d.toISOString().slice(2, 10).replace(/-/g, "");
+            const unique = d.getTime().toString().slice(-4);
+
+            document.getElementById("final-order-number").textContent =
+                `BMINT-${dateCode}-${unique}`;
+
+            sessionStorage.removeItem("buyNowItem");
+
+            if (method !== "cod") {
+                localStorage.removeItem("cartItems");
             }
         });
-        
-        const navMenu = document.querySelector('.nav-menu');
-        const openBtn = document.getElementById('menu-open-button');
-        const closeBtn = document.getElementById('menu-close-button');
 
-        if (openBtn && navMenu) {
-            openBtn.addEventListener('click', () => {
-                navMenu.classList.add('active');
-            });
-        }
-
-        if (closeBtn && navMenu) {
-            closeBtn.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-            });
-        }
+        const navMenu = document.querySelector(".nav-menu");
+        document.getElementById("menu-open-button").onclick = () => navMenu.classList.add("active");
+        document.getElementById("menu-close-button").onclick = () => navMenu.classList.remove("active");
     </script>
+
 </body>
 </html>
