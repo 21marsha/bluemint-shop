@@ -2,170 +2,102 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pesanan Berhasil | Bluemint</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
-        .success-container {
-            padding: 100px 5% 80px;
-            max-width: 800px;
-            margin: 60px auto;
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f9f9;
+            padding: 100px 20px;
             text-align: center;
-            border: 2px solid #28a745;
+        }
+
+        .success-box {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 30px;
             border-radius: 12px;
-            background-color: #f1fff5;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
-        .success-container i.fa-check-circle {
-            font-size: 5rem;
+        h1 {
             color: #28a745;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
-        .order-details {
-            margin-top: 30px;
-            padding: 20px;
-            background: #e9fbe9;
-            border-radius: 8px;
+        .order-info {
             text-align: left;
+            margin-top: 20px;
+            font-size: 1rem;
         }
 
-        .order-details strong {
-            display: inline-block;
-            width: 180px;
-            color: #1c7430;
+        .order-info p {
+            margin: 8px 0;
         }
 
-        #payment-code-detail {
-            margin-top: 15px;
-            padding: 12px;
-            border: 1px dashed #28a745;
-            background: #fff;
-            border-radius: 6px;
-        }
-
-        .highlight-total {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #d9534f;
-        }
-
-        .btn-primary {
-            display: inline-block;
-            margin-top: 30px;
+        .btn-home {
+            margin-top: 25px;
             padding: 12px 25px;
             background: #3c7e9d;
-            color: #fff;
-            border-radius: 6px;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
         }
 
-        .btn-primary:hover {
-            opacity: 0.85;
+        .btn-home:hover {
+            background: #2a617a;
         }
     </style>
 </head>
-
 <body>
 
-    <header>
-        <nav class="navbar">
-            <div class="nav-logo">
-                <a href="index.html" class="logo-text">🛍️ Bluemint</a>
-            </div>
+    <div class="success-box">
+        <h1>✅ Pesanan Berhasil!</h1>
+        <p>Terima kasih sudah berbelanja di Bluemint.</p>
 
-            <i id="menu-open-button" class="fas fa-bars"></i>
+        <div class="order-info">
+            <p><strong>Total Pembayaran:</strong> <span id="total-payment">Rp 0</span></p>
+            <p><strong>Metode Pembayaran:</strong> <span id="payment-method">-</span></p>
+            <p><strong>Status:</strong> Menunggu konfirmasi</p>
+        </div>
 
-            <ul class="nav-menu">
-                <i id="menu-close-button" class="fas fa-times"></i>
-                <li><a href="index.html" class="nav-link">Home</a></li>
-                <li><a href="about.html" class="nav-link">About</a></li>
-                <li><a href="lookbook.html" class="nav-link">Lookbook</a></li>
-                <li><a href="shop.html" class="nav-link">Shop</a></li>
-                <li><a href="contact.html" class="nav-link">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+        <a href="index.html" class="btn-home">Kembali ke Home</a>
+    </div>
 
-    <main>
-        <section class="success-container">
-            <i class="fas fa-check-circle"></i>
-            <h1>Pesanan Berhasil Dibuat!</h1>
-            <p>Terima kasih atas pesanan Anda. Kami akan segera memprosesnya.</p>
+    <script>
+        function formatRupiah(number) {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(number || 0);
+        }
 
-            <div class="order-details">
-                <h3 style="margin-top: 0; color:#1c7430;">Detail Pembayaran</h3>
+        const params = new URLSearchParams(window.location.search);
+        const total = params.get("total");
+        const method = params.get("method");
 
-                <p><strong>Nomor Pesanan:</strong> <span id="order-number"></span></p>
-                <p><strong>Metode Pembayaran:</strong> <span id="order-method">Memuat...</span></p>
-                <p><strong>Total Pembayaran:</strong> <span id="order-total">Rp 0</span></p>
+        const displayTotal = document.getElementById("total-payment");
+        const displayMethod = document.getElementById("payment-method");
 
-                <div id="payment-code-detail">
-                    <p style="text-align: center;">Memuat instruksi pembayaran...</p>
-                </div>
+        if (!total || !method) {
+            displayTotal.textContent = "Data tidak tersedia";
+            displayMethod.textContent = "Data tidak tersedia";
+        } else {
+            displayTotal.textContent = formatRupiah(Number(total));
 
-                <p style="font-size:0.9em; color:#666; margin-top:15px;">
-                    Anda akan menerima email konfirmasi segera.
-                </p>
-            </div>
+            let methodText = "-";
+            if (method === "transfer") methodText = "Transfer Bank (BCA)";
+            if (method === "e-wallet") methodText = "E-Wallet (GoPay / Dana)";
+            if (method === "cod") methodText = "Bayar di Tempat (COD)";
 
-            <a href="index.html" class="btn-primary">Kembali ke Home</a>
-        </section>
-    </main>
+            displayMethod.textContent = methodText;
+        }
 
-   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-    const orderNumber = localStorage.getItem("orderNumber");
-    const orderMethod = localStorage.getItem("paymentMethod");
-    const orderTotal = localStorage.getItem("cartTotal");
-    const paymentCodeBox = document.getElementById("payment-code-detail");
-
-    document.getElementById("order-number").textContent = 
-        orderNumber ? orderNumber : "BMINT-" + Math.floor(Math.random() * 1000000);
-
-    document.getElementById("order-method").textContent = 
-        orderMethod ? orderMethod : "Tidak diketahui";
-
-    document.getElementById("order-total").textContent = 
-        orderTotal ? "Rp " + orderTotal : "Rp 0";
-
-    let paymentHTML = "";
-
-    if (orderMethod === "BCA") {
-        paymentHTML = `
-            <h4>Kode Pembayaran BCA</h4>
-            <p>No Virtual Account:</p>
-            <h3>3901 8888 ${Math.floor(100000 + Math.random() * 900000)}</h3>
-        `;
-    } 
-    else if (orderMethod === "DANA") {
-        paymentHTML = `
-            <h4>Pembayaran via DANA</h4>
-            <p>No DANA:</p>
-            <h3>0812 ${Math.floor(100000 + Math.random() * 900000)}</h3>
-        `;
-    }
-    else if (orderMethod === "OVO") {
-        paymentHTML = `
-            <h4>Pembayaran via OVO</h4>
-            <p>No OVO:</p>
-            <h3>0813 ${Math.floor(100000 + Math.random() * 900000)}</h3>
-        `;
-    }
-    else if (orderMethod === "COD") {
-        paymentHTML = `
-            <h4>Pembayaran COD</h4>
-            <p>Silakan bayar langsung ke kurir saat barang sampai.</p>
-        `;
-    } 
-    else {
-        paymentHTML = `<p style="color:red;">Metode tidak dikenali.</p>`;
-    }
-
-    paymentCodeBox.innerHTML = paymentHTML;
-});
-
-        </script>
-    </body>
+        localStorage.removeItem("cartItems");
+    </script>
+</body>
 </html>
