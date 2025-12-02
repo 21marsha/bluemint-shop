@@ -24,7 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-    // 1. Tombol Tambah ke Keranjang
     if (addToCartBtn) {
         addToCartBtn.addEventListener('click', () => {
             const product = getProductData();
@@ -34,12 +33,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             
-            // Panggil fungsi inti dari cart.js
             addToCart(product); 
         });
     }
 
-    // 2. Tombol Beli Sekarang
     if (buyNowBtn) {
         buyNowBtn.addEventListener('click', () => {
             const product = getProductData();
@@ -50,8 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             addToCart(product); 
-        
-            window.location.href = 'checkout.html';
+            window.location.href = 'cart.html'; 
         });
     }
 });

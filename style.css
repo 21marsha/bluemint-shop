@@ -47,8 +47,8 @@ img { max-width: 100%; display: block; }
 }
 
 /* ====================================
-   2. NAVBAR
-   ==================================== */
+  2. NAVBAR
+  ==================================== */
 header {
     position: fixed;
     width: 100%;
@@ -466,14 +466,59 @@ header {
 }
 
 /* ====================================
-   8. MEDIA QUERIES (RESPONSIVE)
-   ==================================== */
-
-/* RESPONSIVE NAV 900PX */
+  8. MEDIA QUERIES (RESPONSIVE)
+  ==================================== */
 @media screen and (max-width: 900px) {
-    #menu-open-button,
-    #menu-close-button {
+    #menu-open-button {
         display: block;
+        font-size: 1.8rem;
+        color: var(--white-color);
+        cursor: pointer;
+        z-index: 200; 
+    }
+
+    .nav-menu {
+        position: fixed;
+        right: 0;
+        top: 0;
+        width: 70%; 
+        height: 100vh;
+        background: var(--primary-color);
+        flex-direction: column;
+        justify-content: flex-start; 
+        align-items: flex-start; 
+        padding: 50px 30px; 
+        transform: translateX(100%); 
+        transition: transform 0.4s ease-in-out;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+    }
+    
+    .nav-menu.active {
+        transform: translateX(0);
+    }
+    
+    #menu-close-button {
+        display: none;
+        position: absolute;
+        top: 25px;
+        right: 25px;
+        font-size: 2rem;
+        color: var(--white-color);
+        cursor: pointer;
+    }
+    
+    .nav-menu.active #menu-close-button {
+        display: block; 
+    }
+    
+    .nav-menu li {
+        margin: 15px 0;
+        width: 100%;
+    }
+
+    .nav-link {
+        display: block;
+        width: 100%;
     }
 
     .about-container {
@@ -508,6 +553,14 @@ header {
         width: 100%;
         min-width: unset;
     }
+    
+    .checkout-layout {
+        flex-direction: column;
+    }
+    .summary-area {
+        order: -1; 
+        margin-bottom: 20px;
+    }
 }
 
 @media (max-width: 600px) {
@@ -515,29 +568,6 @@ header {
         height: 220px;
     }
 }
-
-.product-options select,
-.product-options input[type="number"] {
-    padding: 10px 15px;
-    border: 1px solid #ccc;
-    border-radius: var(--border-radius-s);
-    font-size: var(--font-size-m);
-}
-
-.action-buttons .btn-primary {
-    background-color: var(--accent-color);
-    color: var(--white-color);
-}
-.action-buttons .btn-primary:hover {
-    background-color: #4a6a6a; 
-}
-
-.action-buttons .btn-secondary {
-    background-color: #f0f0f0;
-    color: var(--accent-color);
-    border: 1px solid #ccc;
-}
-
 
 /* ==================================== */
 /* 9. CSS Halaman KERANJANG             */
