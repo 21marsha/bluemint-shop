@@ -7,18 +7,23 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <style>
-        
+       
         .checkout-container {
             padding: 120px 5% 80px; 
             max-width: 700px;
             margin: auto;
         }
 
+        .checkout-container h1 {
+            color: var(--primary-color, #333); 
+            text-align: center;
+        }
+
         .checkout-container h3 {
             margin-top: 25px;
             padding-bottom: 5px;
             border-bottom: 2px solid #ccc;
-            color: var(--primary-color);
+            color: var(--primary-color, #007bff);
         }
 
         .checkout-container input[type="text"], 
@@ -38,12 +43,21 @@
             border: 1px solid #ddd;
             border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.2s;
         }
         
-        /* Tambahkan style untuk daftar item di ringkasan */
+        .payment-methods label:hover {
+            background-color: #f5f5f5;
+        }
+
+        .payment-methods input[type="radio"]:checked + label {
+            border-color: var(--primary-color, #007bff);
+            background-color: #e9fbe9;
+        }
+
         #checkout-items-list p {
             font-size: 0.95rem;
-            color: var(--text-color-medium);
+            color: var(--text-color-medium, #666);
             margin: 5px 0;
             display: flex;
             justify-content: space-between;
@@ -52,7 +66,7 @@
         .order-summary {
             margin-top: 30px;
             padding: 15px;
-            border: 1px solid var(--accent-color);
+            border: 1px solid var(--accent-color, #ccc);
             background-color: #f7f9f9;
             border-radius: 5px;
             font-size: 1.1rem;
@@ -71,7 +85,7 @@
             width: 100%;
             padding: 15px;
             margin-top: 20px;
-            background-color: var(--primary-color);
+            background-color: var(--primary-color, #007bff);
             color: white;
             border: none;
             border-radius: 5px;
@@ -81,7 +95,7 @@
         }
 
         .btn-pay:hover {
-            background-color: var(--accent-color);
+            background-color: var(--accent-color, #0056b3);
         }
     </style>
 </head>
@@ -138,16 +152,40 @@
 
                 <input type="hidden" id="hidden-total-value" value="0"> 
 
-                <button type="submit" class="btn-pay">Bayar Sekarang</button>
+                <button type="submit" class="btn-pay" id="place-order-btn">Bayar Sekarang</button>
             </form>
         </section>
     </main>
 
     <script>
-        
+
+        const navMenu = document.querySelector('.nav-menu');
+        const openBtn = document.getElementById('menu-open-button');
+        const closeBtn = document.getElementById('menu-close-button');
+
+        if (openBtn && navMenu) {
+            openBtn.addEventListener('click', () => {
+                navMenu.classList.add('active');
+            });
+        }
+
+        if (closeBtn && navMenu) {
+            closeBtn.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        }
+
         const SHIPPING_FEE = 30000; 
 
-        // Fungsi baru: Menampilkan item dan menghitung subtotal
+        function formatRupiah(number) {
+            if (isNaN(number)) return 'Rp 0';
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(number);
+        }
+
         function renderCheckoutItems(cartItems) {
             const listContainer = document.getElementById('checkout-items-list');
             listContainer.innerHTML = ''; 
@@ -160,7 +198,6 @@
             let subtotal = 0;
 
             cartItems.forEach(item => {
-                // Pastikan harga adalah number, jika disimpan sebagai string, konversi dulu
                 const itemPrice = parseFloat(item.price); 
                 const totalItemPrice = itemPrice * item.quantity;
                 subtotal += totalItemPrice; 
@@ -168,7 +205,7 @@
                 const itemElement = document.createElement('p');
                 itemElement.innerHTML = `
                     ${item.name} (${item.size}) &times; ${item.quantity} 
-                    <span style="float:right;">Rp ${totalItemPrice.toLocaleString('id-ID')}</span>
+                    <span style="float:right;">${formatRupiah(totalItemPrice)}</span>
                 `;
                 listContainer.appendChild(itemElement);
             });
@@ -176,24 +213,21 @@
             return subtotal; 
         }
 
-        // Fungsi utama untuk memuat ringkasan harga
         function loadOrderSummary() {
             const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-            // 1. Render item dan hitung subtotal
             const subtotal = renderCheckoutItems(cartItems);
 
             const totalFinal = subtotal + SHIPPING_FEE;
             
-            // 2. Tampilkan Subtotal dan Total Akhir
-            document.getElementById('display-subtotal').textContent = `Rp ${subtotal.toLocaleString('id-ID')}`;
-            document.getElementById('display-total-final').textContent = `Rp ${totalFinal.toLocaleString('id-ID')}`;
+            document.getElementById('display-subtotal').textContent = formatRupiah(subtotal);
+            document.getElementById('display-total-final').textContent = formatRupiah(totalFinal);
             
             document.getElementById('hidden-total-value').value = totalFinal;
 
             if (subtotal === 0) {
                 alert("Keranjang belanja Anda kosong. Mohon belanja terlebih dahulu.");
-                window.location.href = 'index.html'; 
+                window.location.href = 'shop.html'; 
             }
         }
 
@@ -215,43 +249,25 @@
                     alert("Mohon lengkapi semua data pengiriman.");
                     return; 
                 }
-                
-                // Simpan detail order ke localStorage untuk halaman sukses
+
+                const methodCode = selectedMethod.value;
                 const orderDetails = {
                     total: totalValue,
-                    method: selectedMethod.value,
-                    // Tambahkan detail lain di sini jika perlu
+                    method: methodCode,
                 };
                 localStorage.setItem('lastOrderDetails', JSON.stringify(orderDetails));
-
-                // Bersihkan keranjang
-                localStorage.removeItem('cartItems'); 
-                localStorage.removeItem('cartTotal'); 
                 
-                window.location.href = `order-success.html?total=${totalValue}&method=${selectedMethod.value}`;
+                if (methodCode === 'cod') {
+                    localStorage.removeItem('cartItems'); 
+                    localStorage.removeItem('cartTotal'); 
+                } 
+                
+                window.location.href = `order-success.html?total=${totalValue}&method=${methodCode}`;
             } else {
                 alert("Mohon pilih salah satu metode pembayaran.");
             }
         });
 
-        // ===================================
-        // Logika Mobile Navbar (Diulang agar ikon bekerja)
-        // ===================================
-        const navMenu = document.querySelector('.nav-menu');
-        const openBtn = document.getElementById('menu-open-button');
-        const closeBtn = document.getElementById('menu-close-button');
-
-        if (openBtn && navMenu) {
-            openBtn.addEventListener('click', () => {
-                navMenu.classList.add('active');
-            });
-        }
-
-        if (closeBtn && navMenu) {
-            closeBtn.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-            });
-        }
     </script>
 </body>
 </html>
