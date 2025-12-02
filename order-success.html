@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pesanan Berhasil | Bluemint</title>
-
-    <!-- Styles -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
@@ -71,7 +69,6 @@
 
 <body>
 
-    <!-- NAVBAR -->
     <header>
         <nav class="navbar">
             <div class="nav-logo">
@@ -91,7 +88,6 @@
         </nav>
     </header>
 
-    <!-- MAIN CONTENT -->
     <main>
         <section class="success-container">
             <i class="fas fa-check-circle"></i>
@@ -101,9 +97,9 @@
             <div class="order-details">
                 <h3 style="margin-top: 0; color:#1c7430;">Detail Pembayaran</h3>
 
-                <p><strong>Nomor Pesanan:</strong> <span id="final-order-number">BMINT-XXXX</span></p>
-                <p><strong>Metode Pembayaran:</strong> <span id="final-method">Memuat...</span></p>
-                <p><strong>Total Pembayaran:</strong> <span id="final-total" class="highlight-total">Rp 0</span></p>
+                <p><strong>Nomor Pesanan:</strong> <span id="order-number"></span></p>
+                <p><strong>Metode Pembayaran:</strong> <span id="order-method">Memuat...</span></p>
+                <p><strong>Total Pembayaran:</strong> <span id="order-total">Rp 0</span></p>
 
                 <div id="payment-code-detail">
                     <p style="text-align: center;">Memuat instruksi pembayaran...</p>
@@ -118,69 +114,58 @@
         </section>
     </main>
 
-    <!-- SCRIPT -->
-    <script>
-        function formatRupiah(amount) {
-            return "Rp " + Number(amount).toLocaleString("id-ID");
-        }
+   <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const orderNumber = localStorage.getItem("orderNumber");
+    const orderMethod = localStorage.getItem("paymentMethod");
+    const orderTotal = localStorage.getItem("cartTotal");
+    const paymentCodeBox = document.getElementById("payment-code-detail");
 
-        document.addEventListener("DOMContentLoaded", () => {
-            const method = localStorage.getItem("paymentMethod");
-            const code = localStorage.getItem("paymentCode");
-            const total = localStorage.getItem("finalTotal");
+    document.getElementById("order-number").textContent = 
+        orderNumber ? orderNumber : "BMINT-" + Math.floor(Math.random() * 1000000);
 
-            document.getElementById("final-total").textContent = formatRupiah(total);
+    document.getElementById("order-method").textContent = 
+        orderMethod ? orderMethod : "Tidak diketahui";
 
-            const finalMethodDisplay = document.getElementById("final-method");
-            const codeDetailDisplay = document.getElementById("payment-code-detail");
+    document.getElementById("order-total").textContent = 
+        orderTotal ? "Rp " + orderTotal : "Rp 0";
 
-            let html = "";
+    let paymentHTML = "";
 
-            // Transfer
-            if (method === "transfer") {
-                finalMethodDisplay.textContent = "Transfer Bank (BCA / Mandiri)";
+    if (orderMethod === "BCA") {
+        paymentHTML = `
+            <h4>Kode Pembayaran BCA</h4>
+            <p>No Virtual Account:</p>
+            <h3>3901 8888 ${Math.floor(100000 + Math.random() * 900000)}</h3>
+        `;
+    } 
+    else if (orderMethod === "DANA") {
+        paymentHTML = `
+            <h4>Pembayaran via DANA</h4>
+            <p>No DANA:</p>
+            <h3>0812 ${Math.floor(100000 + Math.random() * 900000)}</h3>
+        `;
+    }
+    else if (orderMethod === "OVO") {
+        paymentHTML = `
+            <h4>Pembayaran via OVO</h4>
+            <p>No OVO:</p>
+            <h3>0813 ${Math.floor(100000 + Math.random() * 900000)}</h3>
+        `;
+    }
+    else if (orderMethod === "COD") {
+        paymentHTML = `
+            <h4>Pembayaran COD</h4>
+            <p>Silakan bayar langsung ke kurir saat barang sampai.</p>
+        `;
+    } 
+    else {
+        paymentHTML = `<p style="color:red;">Metode tidak dikenali.</p>`;
+    }
 
-                html = `
-                    <p><strong>Kode Pembayaran:</strong> ${code}</p>
+    paymentCodeBox.innerHTML = paymentHTML;
+});
 
-                    <p><strong>BCA:</strong> 8899 0088 1234<br>a/n PT Bluemint Jaya</p>
-                    <p><strong>Mandiri:</strong> 9877 5780 9067<br>a/n Bluemint</p>
-
-                    <p>Gunakan kode pembayaran saat melakukan transfer.</p>
-                `;
-            }
-
-            else if (method === "e-wallet") {
-                finalMethodDisplay.textContent = "E-Wallet (GoPay / Dana / OVO / ShopeePay)";
-
-                html = `
-                    <p><strong>Kode Pembayaran:</strong> ${code}</p>
-
-                    <p><strong>GoPay:</strong> 0878-1334-5781</p>
-                    <p><strong>Dana:</strong> 0812-0019-1233</p>
-                    <p><strong>OVO:</strong> 0895-7143-5558</p>
-                    <p><strong>ShopeePay:</strong> 0896-9860-5439</p>
-
-                    <p>Masukkan kode pembayaran pada kolom “Berita Transfer”.</p>
-                `;
-            }
-
-            else if (method === "cod") {
-                finalMethodDisplay.textContent = "COD (Bayar di Tempat)";
-
-                html = `
-                    <p><strong>Tidak ada kode pembayaran</strong></p>
-                    <p>Bayar ke kurir saat barang sampai.</p>
-                `;
-            }
-
-            else {
-                html = `<p style="color:red;">Metode tidak dikenali.</p>`;
-            }
-
-            codeDetailDisplay.innerHTML = html;
-        });
-    </script>
-
-</body>
+        </script>
+    </body>
 </html>
