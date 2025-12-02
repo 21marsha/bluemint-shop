@@ -11,9 +11,9 @@
 }
 
 :root {
-    --primary-color: #3c7e9d; /* Biru/Navy */
-    --secondary-color: #f7a5b2; /* Pink Muda */
-    --accent-color: #5a7d7d; /* Warna Aksen untuk Detail/Tombol */
+    --primary-color: #3c7e9d; 
+    --secondary-color: #f7a5b2; 
+    --accent-color: #5a7d7d; 
     --white-color: #ffffff;
     --text-color-dark: #222;
     --text-color-medium: #666;
@@ -27,7 +27,6 @@ ul { list-style: none; }
 a { text-decoration: none; }
 img { max-width: 100%; display: block; }
 
-/* Global Button Class */
 .button {
     padding: 12px 24px;
     background: var(--primary-color);
@@ -53,7 +52,7 @@ img { max-width: 100%; display: block; }
 header {
     position: fixed;
     width: 100%;
-    z-index: 100; /* Naikkan z-index agar pasti di atas */
+    z-index: 100; 
     background: var(--primary-color);
 }
 
@@ -87,7 +86,6 @@ header {
     background: var(--secondary-color);
 }
 
-/* MOBILE BUTTONS HIDDEN */
 #menu-open-button,
 #menu-close-button {
     display: none;
@@ -224,7 +222,6 @@ header {
     justify-items: center; 
 }
 
-/* CARD PRODUK (CASUAL, COLLECTION, PASTEL) */
 .casual-card, 
 .collection-card, 
 .pastel-card,
@@ -247,7 +244,6 @@ header {
     box-shadow: 0 10px 25px rgba(0,0,0,0.12);
 }
 
-/* Gambar di dalam Card */
 .casual-card img, 
 .collection-card img, 
 .pastel-card img,
@@ -274,7 +270,6 @@ header {
     margin-bottom: 15px;
 }
 
-/* Tombol View Details */
 .casual-btn,
 .details-btn {
     display: inline-block;
@@ -427,7 +422,6 @@ header {
     align-items: flex-end; 
 }
 
-/* Tombol Aksi (Keranjang, Beli) */
 .action-buttons {
     display: flex;
     gap: 18px; 
@@ -489,7 +483,6 @@ header {
     }
 }
 
-/* RESPONSIVE HERO 768PX */
 @media (max-width: 768px) {
     .hero-container {
         text-align: center;
@@ -501,7 +494,6 @@ header {
         font-size: 1.4rem;
     }
     
-    /* DETAIL PAGE */
     .detail-container {
         flex-direction: column;
         gap: 20px;
@@ -518,7 +510,6 @@ header {
     }
 }
 
-/* RESPONSIVE COLLECTION 600PX */
 @media (max-width: 600px) {
     .collection-card img {
         height: 220px;
@@ -583,7 +574,6 @@ header {
     flex-grow: 1;
 }
 
-/* Tombol Hapus */
 .cart-item .remove-btn {
     padding: 5px 10px;
     background-color: #dc3545; /* Merah */
@@ -675,7 +665,6 @@ header {
     padding-bottom: 10px;
 }
 
-/* Ringkasan Pesanan */
 #checkout-items-list {
     border-bottom: 1px dashed var(--secondary-color); 
     padding-bottom: 15px;
@@ -689,12 +678,10 @@ header {
     color: var(--primary-color); 
 }
 
-/* Tombol Bayar Sekarang */
 #place-order-btn {
     width: 100%;
     padding: 14px 24px;
     margin-top: 20px;
-    /* Mengambil style dari .button global */
     background: var(--primary-color); 
     color: var(--white-color);
     border-radius: var(--border-radius-m);
@@ -708,7 +695,6 @@ header {
     background: var(--accent-color);
 }
 
-/* MEDIA QUERY CHECKOUT untuk Ponsel */
 @media (max-width: 768px) {
     .checkout-layout {
         flex-direction: column;
@@ -740,7 +726,6 @@ header {
     border-left: 5px solid var(--accent-color); 
 }
 
-/* KELAS AKTIF: Pop-up muncul */
 #mini-cart-popup.active {
     transform: translateX(0); 
 }
@@ -757,7 +742,6 @@ header {
     font-size: 1.2rem;
 }
 
-/* Area Daftar Item */
 #mini-cart-items {
     max-height: 200px; 
     overflow-y: auto;
@@ -765,7 +749,6 @@ header {
     margin-bottom: 15px;
 }
 
-/* Ringkasan Total */
 .mini-cart-summary {
     display: flex;
     justify-content: space-between;
@@ -775,7 +758,6 @@ header {
     border-top: 1px dashed #eee;
 }
 
-/* Tombol Lihat Keranjang */
 .mini-cart-btn {
     display: block;
     width: 100%;
@@ -788,7 +770,6 @@ header {
     font-weight: 600;
 }
 
-/* Tombol Tutup */
 .mini-cart-close {
     background: transparent;
     border: none;
