@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pesanan Berhasil | Bluemint</title>
+
+    <!-- Styles -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
@@ -11,12 +13,11 @@
         .success-container {
             padding: 100px 5% 80px;
             max-width: 800px;
-            margin: auto;
+            margin: 60px auto;
             text-align: center;
             border: 2px solid #28a745;
-            border-radius: 10px;
+            border-radius: 12px;
             background-color: #f1fff5;
-            margin-top: 50px;
         }
 
         .success-container i.fa-check-circle {
@@ -27,7 +28,7 @@
 
         .order-details {
             margin-top: 30px;
-            padding: 15px;
+            padding: 20px;
             background: #e9fbe9;
             border-radius: 8px;
             text-align: left;
@@ -41,9 +42,10 @@
 
         #payment-code-detail {
             margin-top: 15px;
-            padding: 10px;
+            padding: 12px;
             border: 1px dashed #28a745;
             background: #fff;
+            border-radius: 6px;
         }
 
         .highlight-total {
@@ -51,15 +53,29 @@
             font-weight: bold;
             color: #d9534f;
         }
+
+        .btn-primary {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 25px;
+            background: #3c7e9d;
+            color: #fff;
+            border-radius: 6px;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.85;
+        }
     </style>
 </head>
 
 <body>
 
+    <!-- NAVBAR -->
     <header>
         <nav class="navbar">
             <div class="nav-logo">
-                <a href="index.html" class="logo-text">🛍️Bluemint</a>
+                <a href="index.html" class="logo-text">🛍️ Bluemint</a>
             </div>
 
             <i id="menu-open-button" class="fas fa-bars"></i>
@@ -75,6 +91,7 @@
         </nav>
     </header>
 
+    <!-- MAIN CONTENT -->
     <main>
         <section class="success-container">
             <i class="fas fa-check-circle"></i>
@@ -82,14 +99,14 @@
             <p>Terima kasih atas pesanan Anda. Kami akan segera memprosesnya.</p>
 
             <div class="order-details">
-                <h3 style="margin-top: 0; color: #1c7430;">Detail Pembayaran</h3>
+                <h3 style="margin-top: 0; color:#1c7430;">Detail Pembayaran</h3>
 
                 <p><strong>Nomor Pesanan:</strong> <span id="final-order-number">BMINT-XXXX</span></p>
                 <p><strong>Metode Pembayaran:</strong> <span id="final-method">Memuat...</span></p>
                 <p><strong>Total Pembayaran:</strong> <span id="final-total" class="highlight-total">Rp 0</span></p>
 
                 <div id="payment-code-detail">
-                    <p style="text-align:center;">Memuat instruksi pembayaran...</p>
+                    <p style="text-align: center;">Memuat instruksi pembayaran...</p>
                 </div>
 
                 <p style="font-size:0.9em; color:#666; margin-top:15px;">
@@ -97,94 +114,72 @@
                 </p>
             </div>
 
-            <a href="index.html" class="button btn-primary" style="margin-top:30px; text-decoration:none;">
-                Kembali ke Home
-            </a>
+            <a href="index.html" class="btn-primary">Kembali ke Home</a>
         </section>
     </main>
 
-
+    <!-- SCRIPT -->
     <script>
-
-        function formatRupiah(number) {
-            return new Intl.NumberFormat("id-ID", {
-                style: "currency",
-                currency: "IDR",
-                minimumFractionDigits: 0
-            }).format(number || 0);
-        }
-
-        function generatePaymentInstruction(method) {
-            if (method === "transfer") {
-                return `
-                    <p style="margin:0; font-weight:bold;">Transfer Bank:</p>
-
-                    <h4 style="margin:5px 0; color:#1c7430;">BCA: 8899 0088 1234 5678</h4>
-                    <p style="margin:0; font-size:0.9em;">a/n PT Bluemint Jaya</p>
-
-                    <h4 style="margin:10px 0 0; color:#1c7430;">Mandiri: 1234 5678 9012</h4>
-                    <p style="margin:0; font-size:0.9em;">a/n Marsha Amalia</p>
-
-                    <p style="font-size:0.9em; margin-top:10px;">Bayar dalam 24 jam.</p>
-                `;
-            }
-
-            if (method === "e-wallet") {
-                return `
-                    <p style="margin:0; font-weight:bold;">Pembayaran E-Wallet:</p>
-                    <h4 style="margin:5px 0; color:#1c7430;">GoPay / Dana: 0878-xxxx-xxxx</h4>
-                    <p style="font-size:0.9em;">Selesaikan pembayaran via aplikasi.</p>
-                `;
-            }
-
-            if (method === "cod") {
-                return `
-                    <p style="margin:0; font-weight:bold;">Bayar di Tempat:</p>
-                    <h4 style="margin:5px 0; color:#1c7430;">Pembayaran Tunai</h4>
-                    <p style="font-size:0.9em;">Siapkan uang pas saat kurir datang.</p>
-                `;
-            }
-
-            return `<p style="color:red;">Metode tidak valid.</p>`;
+        function formatRupiah(amount) {
+            return "Rp " + Number(amount).toLocaleString("id-ID");
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            const params = new URLSearchParams(window.location.search);
-
-            const total = parseFloat(params.get("total")) || 0;
-            const method = params.get("method") || "unknown";
+            const method = localStorage.getItem("paymentMethod");
+            const code = localStorage.getItem("paymentCode");
+            const total = localStorage.getItem("finalTotal");
 
             document.getElementById("final-total").textContent = formatRupiah(total);
 
-            const methodNames = {
-                "transfer": "Transfer Bank (BCA/Mandiri)",
-                "e-wallet": "E-Wallet (GoPay/Dana)",
-                "cod": "Bayar di Tempat (COD)"
-            };
+            const finalMethodDisplay = document.getElementById("final-method");
+            const codeDetailDisplay = document.getElementById("payment-code-detail");
 
-            document.getElementById("final-method").textContent =
-                methodNames[method] || "Tidak Dikenal";
+            let html = "";
 
-            document.getElementById("payment-code-detail").innerHTML =
-                generatePaymentInstruction(method);
+            // Transfer
+            if (method === "transfer") {
+                finalMethodDisplay.textContent = "Transfer Bank (BCA / Mandiri)";
 
-            const d = new Date();
-            const dateCode = d.toISOString().slice(2, 10).replace(/-/g, "");
-            const unique = d.getTime().toString().slice(-4);
+                html = `
+                    <p><strong>Kode Pembayaran:</strong> ${code}</p>
 
-            document.getElementById("final-order-number").textContent =
-                `BMINT-${dateCode}-${unique}`;
+                    <p><strong>BCA:</strong> 8899 0088 1234<br>a/n PT Bluemint Jaya</p>
+                    <p><strong>Mandiri:</strong> 9877 5780 9067<br>a/n Bluemint</p>
 
-            sessionStorage.removeItem("buyNowItem");
-
-            if (method !== "cod") {
-                localStorage.removeItem("cartItems");
+                    <p>Gunakan kode pembayaran saat melakukan transfer.</p>
+                `;
             }
-        });
 
-        const navMenu = document.querySelector(".nav-menu");
-        document.getElementById("menu-open-button").onclick = () => navMenu.classList.add("active");
-        document.getElementById("menu-close-button").onclick = () => navMenu.classList.remove("active");
+            else if (method === "e-wallet") {
+                finalMethodDisplay.textContent = "E-Wallet (GoPay / Dana / OVO / ShopeePay)";
+
+                html = `
+                    <p><strong>Kode Pembayaran:</strong> ${code}</p>
+
+                    <p><strong>GoPay:</strong> 0878-1334-5781</p>
+                    <p><strong>Dana:</strong> 0812-0019-1233</p>
+                    <p><strong>OVO:</strong> 0895-7143-5558</p>
+                    <p><strong>ShopeePay:</strong> 0896-9860-5439</p>
+
+                    <p>Masukkan kode pembayaran pada kolom “Berita Transfer”.</p>
+                `;
+            }
+
+            else if (method === "cod") {
+                finalMethodDisplay.textContent = "COD (Bayar di Tempat)";
+
+                html = `
+                    <p><strong>Tidak ada kode pembayaran</strong></p>
+                    <p>Bayar ke kurir saat barang sampai.</p>
+                `;
+            }
+
+            else {
+                html = `<p style="color:red;">Metode tidak dikenali.</p>`;
+            }
+
+            codeDetailDisplay.innerHTML = html;
+        });
     </script>
 
 </body>
