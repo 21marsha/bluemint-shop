@@ -4,7 +4,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputJumlah = document.getElementById('input-jumlah');
     const pilihUkuran = document.getElementById('pilih-ukuran');
     const productDataElement = document.getElementById('product-data');
+    const navMenu = document.querySelector('.nav-menu');
+    const openBtn = document.getElementById('menu-open-button');
+    const closeBtn = document.getElementById('menu-close-button');
 
+    if (openBtn && navMenu) {
+        openBtn.addEventListener('click', () => {
+            navMenu.classList.add('active');
+        });
+    }
+
+    if (closeBtn && navMenu) {
+        closeBtn.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+        });
+    }
 
     if (!productDataElement) {
         console.error("Elemen #product-data tidak ditemukan. Tombol tidak akan berfungsi.");
@@ -33,7 +47,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             
-            addToCart(product); 
+            if (typeof addToCart === 'function') {
+                addToCart(product);
+            }
         });
     }
 
@@ -46,8 +62,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             
-            addToCart(product); 
-            window.location.href = 'cart.html'; 
+            if (typeof addToCart === 'function') {
+                addToCart(product);
+            }
+            
+            window.location.href = 'checkout.html'; 
         });
     }
 });
