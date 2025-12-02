@@ -70,12 +70,18 @@
             <div class="nav-logo">
                 <h2 class="logo-text">🛍️Bluemint</h2>
             </div>
+            
+            <i id="menu-open-button" class="fas fa-bars"></i>
+            
             <ul class="nav-menu">
+                <i id="menu-close-button" class="fas fa-times"></i>
+            
                 <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
                 <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
                 <li class="nav-item"><a href="lookbook.html" class="nav-link">Lookbook</a></li>
                 <li class="nav-item"><a href="shop.html" class="nav-link">Shop</a></li>
                 <li class="nav-item"><a href="contact.html" class="nav-link active">Contact</a></li>
+                <li class="nav-item"><a href="cart.html" class="nav-link"><i class="fas fa-shopping-cart"></i></a></li>
             </ul>
         </nav>
     </header>
@@ -133,5 +139,24 @@
             this.reset();
         });
     </script>
+    
+    <script>
+        const navMenu = document.querySelector('.nav-menu');
+        const openBtn = document.getElementById('menu-open-button');
+        const closeBtn = document.getElementById('menu-close-button');
+
+        if (openBtn && navMenu) {
+            openBtn.addEventListener('click', () => {
+                navMenu.classList.add('active');
+            });
+        }
+
+        if (closeBtn && navMenu) {
+            closeBtn.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        }
+    </script>
+    
 </body>
 </html>

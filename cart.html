@@ -9,8 +9,6 @@
     
     <style>
 
-        /* --- CSS INLINE --- */
-
         .cart-section {
             padding: 100px 5% 80px;
             max-width: 1200px;
@@ -117,7 +115,12 @@
             <div class="nav-logo">
                 <a href="index.html" class="logo-text">🛍️Bluemint</a>
             </div>
+            
+            <i id="menu-open-button" class="fas fa-bars"></i>
+            
             <ul class="nav-menu">
+                <i id="menu-close-button" class="fas fa-times"></i>
+            
                 <li><a href="index.html" class="nav-link">Home</a></li>
                 <li><a href="about.html" class="nav-link">About</a></li> 
                 <li><a href="lookbook.html" class="nav-link">Lookbook</a></li>
@@ -171,5 +174,43 @@
     
     <script src="script.js"></script>
     <script src="cart.js"></script> 
+    
+    <script>
+        const navMenu = document.querySelector('.nav-menu');
+        const openBtn = document.getElementById('menu-open-button');
+        const closeBtn = document.getElementById('menu-close-button');
+
+        if (openBtn && navMenu) {
+            openBtn.addEventListener('click', () => {
+                navMenu.classList.add('active');
+            });
+        }
+
+        if (closeBtn && navMenu) {
+            closeBtn.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        }
+    </script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const checkoutBtn = document.getElementById('checkout-btn');
+
+            checkoutBtn.addEventListener('click', () => {
+                const grandTotalElement = document.getElementById('cart-grand-total');
+                if (grandTotalElement) {
+                    const totalText = grandTotalElement.textContent;
+                    const numericTotal = totalText
+                        .replace(/[^\d]/g, ''); 
+                    localStorage.setItem('checkoutTotal', numericTotal);
+                    window.location.href = 'checkout.html';
+                } else {
+                    alert('Kesalahan: Total harga tidak ditemukan.');
+                }
+            });
+        });
+    </script>
+    
 </body>
 </html>

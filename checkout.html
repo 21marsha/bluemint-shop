@@ -1,140 +1,186 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout | Bluemint</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | Bluemint</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+       
+        .checkout-container {
+            padding: 120px 5% 80px; 
+            max-width: 700px;
+            margin: auto;
+        }
 
-        .checkout-container {
-            padding: 100px 5% 80px;
-            max-width: 700px;
-            margin: auto;
-        }
+        .checkout-container h3 {
+            margin-top: 25px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #ccc;
+            color: #333;
+        }
 
-        .checkout-container h3 {
-            margin-top: 25px;
-            padding-bottom: 5px;
-            border-bottom: 2px solid #ccc;
-            color: #333;
-        }
+        .checkout-container input[type="text"], 
+        .checkout-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; 
+        }
 
-        .checkout-container input[type="text"], 
-        .checkout-container textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box; 
-        }
+        .payment-methods label {
+            display: block;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
-        .payment-methods label {
-            display: block;
-            margin-bottom: 10px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+        .order-summary {
+            margin-top: 30px;
+            padding: 15px;
+            border: 1px solid #0056b3;
+            background-color: #e6f0ff;
+            border-radius: 5px;
+            font-size: 1.1rem;
+        }
 
-        .order-summary {
-            margin-top: 30px;
-            padding: 15px;
-            border: 1px solid #0056b3;
-            background-color: #e6f0ff;
-            border-radius: 5px;
-            font-size: 1.1rem;
-        }
+        .btn-pay {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
 
-        
-        .btn-pay {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            margin-top: 20px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
+        .btn-pay:hover {
+            background-color: #1e7e34;
+        }
 
-        .btn-pay:hover {
-            background-color: #1e7e34;
-        }
-
-    </style>
+    </style>
 </head>
 <body>
-    <header>
-        <nav class="navbar">...</nav>
-    </header>
-    <main>
-        <section class="checkout-container">
-            <h1>Selesaikan Pesanan</h1>
-            
-            <form id="checkoutForm">
-                
-                <h3>Informasi Pengiriman</h3>
-                <input type="text" name="name" placeholder="Nama Lengkap" required>
-                <input type="text" name="phone" placeholder="Nomor HP (WhatsApp)" required>
-                <textarea name="address" placeholder="Alamat Lengkap (Jalan, No Rumah, Kecamatan)" required></textarea>
-                
-                <h3>Metode Pembayaran</h3>
-                <div class="payment-methods">
-                    <label>
-                        <input type="radio" name="payment_method" value="transfer" required> Transfer Bank (BCA)
-                    </label>
-                    <label>
-                        <input type="radio" name="payment_method" value="e-wallet" required> E-Wallet (GoPay/Dana)
-                    </label>
-                    <label>
-                        <input type="radio" name="payment_method" value="cod" required> Bayar di Tempat (COD)
-                    </label>
-                </div>
-                
-                <div class="order-summary">
-                    <p>Subtotal: Rp 220.000</p>
-                    <p>Ongkos Kirim: Rp 30.000</p>
-                    <p><strong>TOTAL PEMBAYARAN: <span id="display-total-final">Rp 250.000</span></strong></p>
-                </div>
+    <header>
+                <nav class="navbar">...</nav>
+    </header>
+    <main>
+        <section class="checkout-container">
+            <h1>Selesaikan Pesanan</h1>
+            
+            <form id="checkoutForm">
+                
+                <h3>Informasi Pengiriman</h3>
+                <input type="text" name="name" placeholder="Nama Lengkap" required>
+                <input type="text" name="phone" placeholder="Nomor HP (WhatsApp)" required>
+                <textarea name="address" placeholder="Alamat Lengkap (Jalan, No Rumah, Kecamatan)" required></textarea>
+                
+                <h3>Metode Pembayaran</h3>
+                <div class="payment-methods">
+                    <label>
+                        <input type="radio" name="payment_method" value="transfer" required> Transfer Bank (BCA)
+                    </label>
+                    <label>
+                        <input type="radio" name="payment_method" value="e-wallet" required> E-Wallet (GoPay/Dana)
+                    </label>
+                    <label>
+                        <input type="radio" name="payment_method" value="cod" required> Bayar di Tempat (COD)
+                    </label>
+                </div>
+                
+                <div class="order-summary">
+                                        <p>Subtotal: <span id="display-subtotal">Rp 0</span></p>
+                    <p>Ongkos Kirim: Rp 30.000</p>
+                    <p><strong>TOTAL PEMBAYARAN: <span id="display-total-final">Rp 30.000</span></strong></p>
+                </div>
 
-                <input type="hidden" id="hidden-total-value" value="250000"> 
+                <input type="hidden" id="hidden-total-value" value="0"> 
 
-                <button type="submit" class="btn-pay">Bayar Sekarang</button>
-            </form>
-        </section>
-    </main>
+                <button type="submit" class="btn-pay">Bayar Sekarang</button>
+            </form>
+        </section>
+    </main>
 
-    <script>
-        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
-            e.preventDefault(); 
+    <script>
+        
+        const SHIPPING_FEE = 30000; 
 
-            const selectedMethod = document.querySelector('input[name="payment_method"]:checked');
-            const totalValue = document.getElementById('hidden-total-value').value;
-            
-            
-            if (selectedMethod) {
-                const methodCode = selectedMethod.value;
-                const name = document.querySelector('input[name="name"]').value.trim();
-                const address = document.querySelector('textarea[name="address"]').value.trim();
-                const phone = document.querySelector('input[name="phone"]').value.trim();
-                
-                if (name === '' || address === '' || phone === '') {
-                    alert("Mohon lengkapi semua data pengiriman.");
-                    return; 
-                }
-                
-                window.location.href = `order-success.html?total=${totalValue}&method=${methodCode}`;
-            } else {
-                alert("Mohon pilih salah satu metode pembayaran.");
+        
+        function loadOrderSummary() {
+            const subtotal = parseFloat(localStorage.getItem('cartTotal')) || 0;
+            const totalFinal = subtotal + SHIPPING_FEE;
+            
+            
+            document.getElementById('display-subtotal').textContent = `Rp ${subtotal.toLocaleString('id-ID')}`;
+            
+            
+            document.getElementById('display-total-final').textContent = `Rp ${totalFinal.toLocaleString('id-ID')}`;
+            
+            
+            document.getElementById('hidden-total-value').value = totalFinal;
+
+            if (subtotal === 0) {
+                alert("Keranjang belanja Anda kosong. Mohon belanja terlebih dahulu.");
+                window.location.href = 'cart.html'; 
             }
-        });
-    </script>
+        }
+
+        window.onload = loadOrderSummary;
+
+        
+        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+            e.preventDefault(); 
+
+            const selectedMethod = document.querySelector('input[name="payment_method"]:checked');
+            hidden yang sudah diperbarui oleh loadOrderSummary
+            const totalValue = document.getElementById('hidden-total-value').value;
+            
+            if (selectedMethod) {
+                const methodCode = selectedMethod.value;
+                const name = document.querySelector('input[name="name"]').value.trim();
+                const address = document.querySelector('textarea[name="address"]').value.trim();
+                const phone = document.querySelector('input[name="phone"]').value.trim();
+                
+                if (name === '' || address === '' || phone === '') {
+                    alert("Mohon lengkapi semua data pengiriman.");
+                    return; 
+                }
+                
+                
+                localStorage.removeItem('cartItems'); 
+                localStorage.removeItem('cartTotal'); 
+
+                
+                window.location.href = `order-success.html?total=${totalValue}&method=${methodCode}`;
+            } else {
+                alert("Mohon pilih salah satu metode pembayaran.");
+            }
+        });
+
+        const navMenu = document.querySelector('.nav-menu');
+        const openBtn = document.getElementById('menu-open-button');
+        const closeBtn = document.getElementById('menu-close-button');
+
+        if (openBtn && navMenu) {
+            openBtn.addEventListener('click', () => {
+                navMenu.classList.add('active');
+            });
+        }
+
+        if (closeBtn && navMenu) {
+            closeBtn.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        }
+    </script>
 </body>
 </html>

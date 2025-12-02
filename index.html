@@ -17,29 +17,29 @@
                 <h2 class="logo-text">🛍️Bluemint</h2>
             </div>
 
-        <ul class="nav-menu">
-             <button id="menu-close-button" class="fas fa-times"></button>
+            <i id="menu-open-button" class="fas fa-bars"></i>
 
-             <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li> 
-             <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-             <li class="nav-item"><a href="lookbook.html" class="nav-link">Lookbook</a></li>
-             <li class="nav-item"><a href="shop.html" class="nav-link">Shop</a></li> 
-             <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li> 
+            <ul class="nav-menu">
+                <i id="menu-close-button" class="fas fa-times"></i>
+
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li> 
+                <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="lookbook.html" class="nav-link">Lookbook</a></li>
+                <li class="nav-item"><a href="shop.html" class="nav-link">Shop</a></li> 
+                <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li> 
     
-             <li class="nav-item">
-             <a href="cart.html" class="nav-link">
-             <i class="fas fa-shopping-cart"></i> 
-        </a>
-    </li>
-</ul>
+                <li class="nav-item">
+                    <a href="cart.html" class="nav-link">
+                        <i class="fas fa-shopping-cart"></i> 
+                    </a>
+                </li>
+            </ul>
 
-            <button id="menu-open-button" class="fas fa-bars"></button>
         </nav>
     </header>
 
 
     <main>
-
         <section class="hero-section" id="home">
             <div class="hero-container">
                 <div class="hero-details">
@@ -48,13 +48,11 @@
                     <p class="description">Find the best fashion here at Bluemint</p>
                     <div class="buttons">
                         <a href="#collection" class="button order-now">Shop Now</a>
-                        
                         <a href="contact.html" class="button contact-us">Contact Us</a>
                     </div>
                 </div>
             </div>
         </section>
-
 
         <section class="about-section" id="about">
             <div class="about-container">
@@ -163,10 +161,27 @@
         </div>
     </footer>
 
-
     <script src="script.js"></script>
-    <script src="cart.js"></script>    
+    <script src="cart.js"></script>    
     <script src="detail-script.js"></script>
+
+    <script>
+        const navMenu = document.querySelector('.nav-menu');
+        const openBtn = document.getElementById('menu-open-button');
+        const closeBtn = document.getElementById('menu-close-button');
+
+        if (openBtn && navMenu) {
+            openBtn.addEventListener('click', () => {
+                navMenu.classList.add('active');
+            });
+        }
+
+        if (closeBtn && navMenu) {
+            closeBtn.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        }
+    </script>
 
 </body>
 </html>
